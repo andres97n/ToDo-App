@@ -1,9 +1,13 @@
-
-@import url('https://fonts.googleapis.com/css2?family=Mulish:wght@200;300;400;500;600;700;800;900;1000&display=swap');
+@font-face {
+	font-family: 'Mulish';
+	src: url('../../../fonts/Mulish-VariableFont.woff2') format('woff2-variations'),
+       url('../../../fonts/Mulish-Italic-VariableFont.woff2') format('woff2-variations');
+	font-weight: 200 1000;
+}
 
 /// Font of the theme
 /// @group general
-$fontFamily: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+$fontFamily: 'Mulish', sans-serif;
 
 /// Size of the font
 /// @group general
