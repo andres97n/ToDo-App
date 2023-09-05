@@ -2,6 +2,11 @@
 	box-sizing: border-box;
 }
 
+body {
+    font-family: $fontFamily;
+    margin: 0;
+}
+
 .p-component {
     font-family: $fontFamily;
     font-size: $fontSize;

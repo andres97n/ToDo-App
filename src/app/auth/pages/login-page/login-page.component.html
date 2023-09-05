@@ -1,27 +1,50 @@
 
 <div class="login-container">
   <h3 class="title">Inicio de Sesión</h3>
-  <form [formGroup]="authForm" class="login__form">
+  <form 
+    autocomplete="off"
+    [formGroup]="authForm" 
+    class="login__form"
+    (ngSubmit)="onLogin()"
+  >
     <div class="form__group">
       <span class="p-float-label">
-        <input pInputText id="username" />
+        <input 
+          pInputText 
+          id="username" 
+          formControlName="email" 
+          [ngClass]="{ 'ng-invalid ng-dirty': isValidField('email') }"
+        />
         <label htmlFor="username">Correo Electrónico</label>
       </span>
+      <small 
+        *ngIf="isValidField('email')"
+        class="error-message"
+      >{{ getFieldErrorMessage( 'email' ) }}</small>
     </div>
     <div class="form__group">
       <span class="p-float-label">
-        <p-password [feedback]="false" [toggleMask]="true"></p-password>
+        <p-password 
+          [feedback]="false" 
+          [toggleMask]="true" 
+          formControlName="password"
+          [ngClass]="{ 'ng-invalid ng-dirty': isValidField('password') }"
+        ></p-password>
         <label htmlFor="username">Contraseña</label>
       </span>
+      <small 
+        *ngIf="isValidField('password')"
+        class="error-message"
+      >{{ getFieldErrorMessage( 'password' ) }}</small>
     </div>
+
+    <p-button 
+      label="Ingresar" 
+      styleClass="p-button-raised"
+      type="submit"
+    ></p-button>
+
   </form>
-  
-  
-  <p-button 
-    label="Ingresar" 
-    styleClass="p-button-raised" 
-    (onClick)="submit()"
-  ></p-button>
   
   <div class="login__info">
     <span>¿No tienes cuenta?</span>

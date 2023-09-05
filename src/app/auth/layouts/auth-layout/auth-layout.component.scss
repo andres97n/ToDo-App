@@ -5,7 +5,7 @@
   background-image: radial-gradient(var(--primary-color) 2px, transparent 2px), radial-gradient(var(--primary-color) 2px, transparent 2px);
   background-size: 32px 32px;
   background-position: 0 0, 16px 16px;
-  background-color: #f1d4af;
+  background-color: var(--secondary-color);
 }
 
 .auth-container {
@@ -13,5 +13,5 @@
   width: 32vw;
   border: 3px solid var(--primary-color);
   border-radius: 1.5rem;
-  background-color: #c5e0dc;
+  background-color: #EBEBD3;
 }
