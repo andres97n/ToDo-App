@@ -1,0 +1,22 @@
+
+.header-container {
+  background-color: var(--primary-color);
+  display: grid;
+  grid-template-columns: 10rem 1fr 10rem;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+}
+
+
+.header__search-container {
+  justify-self: center;
+
+  input {
+    width: 25rem;
+  }
+}
+
+.header__logout-container {
+  justify-self: center;
+}
