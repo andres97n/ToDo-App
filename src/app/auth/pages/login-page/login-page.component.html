@@ -13,12 +13,12 @@
           pInputText 
           id="username" 
           formControlName="email" 
-          [ngClass]="{ 'ng-invalid ng-dirty': isValidField('email') }"
+          [ngClass]="{ 'ng-invalid ng-dirty': isInvalidField('email') }"
         />
         <label htmlFor="username">Correo Electrónico</label>
       </span>
       <small 
-        *ngIf="isValidField('email')"
+        *ngIf="isInvalidField('email')"
         class="error-message"
       >{{ getFieldErrorMessage( 'email' ) }}</small>
     </div>
@@ -28,12 +28,12 @@
           [feedback]="false" 
           [toggleMask]="true" 
           formControlName="password"
-          [ngClass]="{ 'ng-invalid ng-dirty': isValidField('password') }"
+          [ngClass]="{ 'ng-invalid ng-dirty': isInvalidField('password') }"
         ></p-password>
         <label htmlFor="username">Contraseña</label>
       </span>
       <small 
-        *ngIf="isValidField('password')"
+        *ngIf="isInvalidField('password')"
         class="error-message"
       >{{ getFieldErrorMessage( 'password' ) }}</small>
     </div>

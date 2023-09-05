@@ -9,7 +9,7 @@ const routes: Routes = [
       .then( m => m.AuthModule )
   },
   {
-    path:'todo',
+    path:'dashboard',
     loadChildren: () => import('./todo/todo.module')
       .then( m => m.TodoModule )
   },

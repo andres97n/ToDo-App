@@ -1,1 +1,75 @@
-<p>register-page works!</p>
+
+<div class="register-container">
+
+  <h3 class="title">Registro de Datos</h3>
+
+  <form 
+    autocomplete="off"
+    [formGroup]="registerForm" 
+    class="register__form"
+    (ngSubmit)="onRegister()"
+  >
+    <div class="form__group">
+      <span class="p-float-label">
+        <input 
+          pInputText 
+          id="username" 
+          formControlName="email" 
+          [ngClass]="{ 'ng-invalid ng-dirty': isInvalidField('email') }"
+        />
+        <label htmlFor="username">Correo Electrónico</label>
+      </span>
+      <small 
+        *ngIf="isInvalidField('email')"
+        class="error-message"
+      >{{ getFieldErrorMessage( 'email' ) }}</small>
+    </div>
+
+    <div class="form__group">
+      <span class="p-float-label">
+        <p-password 
+          [toggleMask]="true" 
+          formControlName="password"
+          [ngClass]="{ 'ng-invalid ng-dirty': isInvalidField('password') }"
+        ></p-password>
+        <label htmlFor="username">Contraseña</label>
+      </span>
+      <small 
+        *ngIf="isInvalidField('password')"
+        class="error-message"
+      >{{ getFieldErrorMessage( 'password' ) }}</small>
+    </div>
+
+    <div class="form__group">
+      <span class="p-float-label">
+        <p-password 
+          [feedback]="false" 
+          [toggleMask]="true" 
+          formControlName="repeated_password"
+          [ngClass]="{ 'ng-invalid ng-dirty': isInvalidField('repeated_password') }"
+        ></p-password>
+        <label htmlFor="username">Repetir Contraseña</label>
+      </span>
+      <small 
+        *ngIf="isInvalidField('repeated_password')"
+        class="error-message"
+      >{{ getFieldErrorMessage( 'repeated_password' ) }}</small>
+    </div>
+
+    <p-button 
+      label="Registrar" 
+      styleClass="p-button-raised"
+      type="submit"
+    ></p-button>
+
+  </form>
+  
+  <div class="login__info">
+    <span>¿Ya tienes cuenta?</span>
+
+    <a routerLink="/auth/login">
+      Inicia sesión aquí
+    </a>
+  </div>
+
+</div>

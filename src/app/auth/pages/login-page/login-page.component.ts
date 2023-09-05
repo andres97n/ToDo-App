@@ -1,5 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 
 import { ValidatorsService } from 'src/app/shared/services/validators.service';
 
@@ -13,6 +14,7 @@ export class LoginPageComponent {
 
   private _fb = inject( FormBuilder );
   private _validatorsService =  inject( ValidatorsService );
+  private _router =  inject( Router );
 
   public authForm: FormGroup = this._fb.group({ 
     email: [
@@ -31,8 +33,8 @@ export class LoginPageComponent {
     ]
   });
 
-  isValidField( field: string ) {
-    return this._validatorsService.isValidField( this.authForm, field );
+  isInvalidField( field: string ) {
+    return this._validatorsService.isInvalidField( this.authForm, field );
   }
 
   getFieldErrorMessage( field: string ) {
@@ -47,7 +49,7 @@ export class LoginPageComponent {
     }
     
     const { email, password } = this.authForm.value;
-
+    this._router.navigateByUrl('/dashboard')
     console.log(email, password);
        
   }
