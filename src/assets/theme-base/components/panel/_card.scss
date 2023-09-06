@@ -3,6 +3,7 @@
     color: $panelContentTextColor;
     box-shadow: $cardShadow;
     border-radius: $borderRadius;
+    width: 25rem;
 
     .p-card-body {
         padding: $cardBodyPadding;
@@ -12,6 +13,7 @@
         font-size: $cardTitleFontSize;
         font-weight: $cardTitleFontWeight;
         margin-bottom: $inlineSpacing;
+        text-align: center;
     }
 
     .p-card-subtitle {
@@ -26,5 +28,7 @@
 
     .p-card-footer {
         padding: $cardFooterPadding;
+        display: flex;
+        justify-content: space-between;
     }
 }

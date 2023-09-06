@@ -1,0 +1,56 @@
+
+.todo-card__container {
+  display: grid;
+  grid-template-rows: 15% 1fr 15%;
+  width: 25rem;
+  height: 25rem;
+  background-color: #fff;
+  border-radius: 1rem;
+  padding: 1rem;
+  row-gap: 0.5rem;
+  -webkit-box-shadow: 3px 3px 10px 3px #9b9b9b;
+  -moz-box-shadow: 3px 3px 10px 3px #9b9b9b;
+  box-shadow: 3px 3px 10px 3px #9b9b9b;
+}
+
+.todo-card__header {
+  display: inline-block;
+  margin: auto;
+
+  h2 {
+    margin: 0;
+  }
+}
+
+.todo-card__body {
+  display: flex;
+  flex-direction: column;
+  row-gap: 0.2rem;
+
+  .todo-card__content-item {
+    display: grid;
+    grid-template-columns: 10% 1fr;
+    border: 2px solid var(--surface-500);
+    border-radius: 0.5rem;
+    // column-gap: 0.5rem;
+    
+    p-checkbox {
+      place-self: center;
+    }
+
+    label {
+      border-left: 2px solid var(--surface-500);
+      padding: 0.3rem;
+      position: relative;
+      overflow: hidden;
+    }
+  }
+}
+
+.todo-card__footer {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}

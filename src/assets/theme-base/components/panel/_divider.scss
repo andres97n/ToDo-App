@@ -1,12 +1,14 @@
 .p-divider {
+
+    
     .p-divider-content {
         background-color: $panelContentBg;
     }
-
+    
     &.p-divider-horizontal {
         margin: $dividerHorizontalMargin;
         padding: $dividerHorizontalPadding;
-
+        
         &:before {
             border-top: $dividerSize $dividerColor;
         }

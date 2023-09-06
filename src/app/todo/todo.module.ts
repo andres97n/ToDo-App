@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { ReactiveFormsModule } from '@angular/forms';
 
 import { TodoRoutingModule } from './todo-routing.module';
 import { PrimengModule } from '../primeng/primeng.module';
@@ -12,6 +13,8 @@ import { TodoListPageComponent } from './pages/todo-list-page/todo-list-page.com
 import { FooterComponent } from './components/footer/footer.component';
 import { HeaderComponent } from './components/header/header.component';
 import { TodoCardComponent } from './components/todo-card/todo-card.component';
+import { TodoNewComponent } from './components/todo-new/todo-new.component';
+import { TodoRealizedComponent } from './components/todo-realized/todo-realized.component';
 
 
 @NgModule({
@@ -21,10 +24,13 @@ import { TodoCardComponent } from './components/todo-card/todo-card.component';
     TodoListPageComponent,
     FooterComponent,
     HeaderComponent,
-    TodoCardComponent
+    TodoCardComponent,
+    TodoNewComponent,
+    TodoRealizedComponent
   ],
   imports: [
     CommonModule,
+    ReactiveFormsModule,
 
     TodoRoutingModule,
     PrimengModule,

@@ -3,8 +3,18 @@
   <h1>Tus Tareas</h1>
   <div class="todo-list__cards-container">
     <div></div>
-    <div class="todo-list__cards">
-      <todo-card />
+    <div class="todo-list__content">
+      <form [formGroup]="menuForm">
+        <p-selectButton 
+          [options]="stateOptions" 
+          formControlName="toggle" 
+          optionLabel="label" 
+          optionValue="value"
+        ></p-selectButton>
+      </form>
+      <hr class="todo-list__separator">
+      <todo-new *ngIf="isToDoNew()"/>
+      <todo-realized *ngIf="isToDoRealized()"/>
     </div>
     <div></div>
   </div>
