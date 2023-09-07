@@ -1,1 +1,39 @@
-<p>todo-page works!</p>
+<div class="todo__container">
+  <h1>Nuevas Tareas</h1>
+  <div class="todo__group-container">
+    <div></div>
+    <div class="todo__items">
+      <div class="todo__item-title">
+        <input type="text" pInputText placeholder="Título del Grupo"/>
+        <p-button icon="pi pi-save"></p-button>
+      </div>
+      <form >
+        <div class="todo__item-header">
+          <span class="p-input-icon-left">
+            <i class="pi pi-plus"></i>
+            <input type="text" pInputText/>
+            <p-button icon="pi pi-angle-down"></p-button>
+          </span>
+        </div>
+        <div class="todo__item-body" *ngIf="true">
+          <div class="todo__item-body_resume">
+            <textarea pInputTextarea [autoResize]="false"></textarea>
+          </div>
+          <div class="todo__item-body_date">
+            <label for="">Fecha Límite</label>
+            <div>
+              <p-selectButton [options]="stateOptions" optionLabel="label" optionValue="value"></p-selectButton>
+              <p-calendar></p-calendar>
+            </div>
+          </div>
+          <div class="todo__item-body_priority">
+            <label for="">Prioridad</label>
+            <p-dropdown [options]="cities" optionLabel="name"></p-dropdown>
+          </div>
+          <div class="todo__item-body_action"></div>
+        </div>
+      </form>
+    </div>
+    <div></div>
+  </div>
+</div>

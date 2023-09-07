@@ -1,0 +1,13 @@
+.footer-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  // align-items: center;
+  align-content: space-between;
+  text-align: center;
+  row-gap: 0.5rem;
+
+  p {
+    margin: 0;
+  }
+}

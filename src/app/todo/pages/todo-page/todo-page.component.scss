@@ -1,0 +1,108 @@
+
+.todo__container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  row-gap: 2rem;
+}
+
+.todo__group-container {
+  display: grid;
+  grid-template-columns: 20% 1fr 20%;
+  justify-items: center;
+  width: 100%;
+}
+
+.todo__items {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  row-gap: 1rem;
+  
+  input {
+    width: 40rem;
+  }
+
+  .todo__item-title {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    width: 100%;
+
+    input {
+      width: 25rem;
+    }
+  }
+
+}
+  
+.todo__item-header {
+  display: inline-block;
+  margin: auto;
+  background-color: var(--surface-800);
+  padding: 1rem;
+  border-top-left-radius: 0.5rem;
+  border-top-right-radius: 0.5rem;
+}
+
+.todo__item-body {
+  display: grid;
+  grid-template-columns: 55% 1fr;
+  grid-template-rows: repeat(3, 1fr);
+  grid-template-areas: 'resume date'
+                       'resume priority'
+                       'resume action';
+  background-color: var(--surface-800);
+  // justify-items: stretch;
+  align-items: stretch;
+  padding: 1rem;
+  gap: 1rem;
+
+  .todo__item-body_resume {
+    grid-area: resume;
+
+    textarea {
+      height: 100%;
+      resize: none;
+    }
+  }
+
+  .todo__item-body_date {
+    grid-area: date;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    width: 100%;
+    row-gap: 0.5rem;
+
+    div {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+    }
+
+    p-calendar {
+      width: 8rem;
+    }
+  }
+
+  .todo__item-body_priority {
+    grid-area: priority;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    row-gap: 0.5rem;
+
+    p-dropdown {
+      width: 100%;
+    }
+  }
+
+  .todo__item-body_action {
+    grid-area: action;
+  }
+
+}

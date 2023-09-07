@@ -1,29 +1,54 @@
 
-<!-- <p-card header="Advanced Card" class="todo-card" role="checkbox">
-  
-  <ng-template pTemplate="footer" class="todo-card__footer">
-      <p-button label="Editar" icon="pi pi-file-edit"></p-button>
-      <p-button label="Completar" icon="pi pi-check" styleClass="p-button-success" [style]="{ 'margin-left': '.5em' }"></p-button>
-  </ng-template>
-</p-card> -->
-
-
 <div class="todo-card__container">
   <div class="todo-card__header">
     <h2>Advanced Card</h2>
   </div>
-  <form [formGroup]="cardForm" class="todo-card__body">
+
+  <div class="todo-card__body">
+    <form [formGroup]="cardForm" class="todo-card__content">
       <div class="todo-card__content-item">
-        <p-checkbox formControlName="check" [value]="true" inputId="ny"></p-checkbox>
+        <p-checkbox 
+          formControlName="check" 
+          [value]="true" 
+          inputId="ny"
+          *ngIf="isTodoType()"
+        ></p-checkbox>
+        <i class="pi pi-check" *ngIf="!isTodoType()"></i>
         <label for="ny">New Yorksdsssssssssssssssssssssssssssssssssssssssssssssssssss</label>
       </div>
-      <!-- <div class="todo-card__content-item">
+      <div class="todo-card__content-item high_priority">
         <p-checkbox formControlName="check" inputId="ny"></p-checkbox>
         <label for="ny">New Yorksdsssssssssssssssssssssssssssssssssssssssssssssssssss</label>
-      </div> -->
-  </form>
+      </div>
+      <div class="todo-card__content-item">
+        <p-checkbox formControlName="check" inputId="ny"></p-checkbox>
+        <label for="ny">New Yorksdsssssssssssssssssssssssssssssssssssssssssssssssssss</label>
+      </div>
+      <div class="todo-card__content-item">
+        <p-checkbox formControlName="check" inputId="ny"></p-checkbox>
+        <label for="ny">New Yorksdsssssssssssssssssssssssssssssssssssssssssssssssssss</label>
+      </div>
+      <div class="todo-card__content-item">
+        <p-checkbox formControlName="check" inputId="ny"></p-checkbox>
+        <label for="ny">New Yorksdsssssssssssssssssssssssssssssssssssssssssssssssssss</label>
+      </div>
+      <div class="todo-card__content-item">
+        <p-checkbox formControlName="check" inputId="ny"></p-checkbox>
+        <label for="ny">New Yorksdsssssssssssssssssssssssssssssssssssssssssssssssssss</label>
+      </div>
+    </form>
+  </div>
+
   <div class="todo-card__footer">
-    <p-button label="Editar" icon="pi pi-file-edit"></p-button>
-      <p-button label="Completar" icon="pi pi-check" styleClass="p-button-success" [style]="{ 'margin-left': '.5em' }"></p-button>
+    <p-button 
+      label="Ver" 
+      icon="pi pi-file-edit"
+    ></p-button>
+    <p-button 
+      label="Completar" 
+      icon="pi pi-check" 
+      styleClass="p-button-success"
+      *ngIf="isTodoType()"
+    ></p-button>
   </div>
 </div>

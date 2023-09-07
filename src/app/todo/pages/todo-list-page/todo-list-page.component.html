@@ -13,8 +13,24 @@
         ></p-selectButton>
       </form>
       <hr class="todo-list__separator">
-      <todo-new *ngIf="isToDoNew()"/>
-      <todo-realized *ngIf="isToDoRealized()"/>
+      <div class="todo-list__items">
+        <todo-items 
+          [todoItems]="['hola']" 
+          [todoType]="toggleValue"
+          *ngIf="isToDoNew()" 
+        />
+        <todo-items 
+          [todoItems]="['chau']" 
+          [todoType]="toggleValue"
+          *ngIf="!isToDoNew()" 
+        />
+        <div 
+          class="todo_list__new-button" 
+          routerLink="/dashboard/todo/0"
+        >
+          <i class="pi pi-plus"></i>
+        </div>
+      </div>
     </div>
     <div></div>
   </div>

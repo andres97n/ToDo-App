@@ -3,6 +3,7 @@
     border: $inputBorder;
     transition: $formElementTransition;
     border-radius: $borderRadius;
+    width: 100%;
 
     &:not(.p-disabled):hover {
         border-color: $inputHoverBorderColor;

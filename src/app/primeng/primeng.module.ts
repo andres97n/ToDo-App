@@ -3,9 +3,12 @@ import { NgModule } from '@angular/core';
 import { InputTextModule } from 'primeng/inputtext';
 import { ButtonModule } from 'primeng/button';
 import { PasswordModule } from 'primeng/password';
-import { CardModule } from 'primeng/card';
 import { SelectButtonModule } from 'primeng/selectbutton';
 import { CheckboxModule } from 'primeng/checkbox';
+import { InputTextareaModule } from 'primeng/inputtextarea';
+import { DropdownModule } from 'primeng/dropdown';
+import { CalendarModule } from 'primeng/calendar';
+
 
 
 @NgModule({
@@ -13,9 +16,11 @@ import { CheckboxModule } from 'primeng/checkbox';
     InputTextModule,
     ButtonModule,
     PasswordModule,
-    CardModule,
     SelectButtonModule,
     CheckboxModule,
+    InputTextareaModule,
+    DropdownModule,
+    CalendarModule,
   ],
 })
 export class PrimengModule { }

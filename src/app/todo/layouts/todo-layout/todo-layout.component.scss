@@ -1,13 +1,12 @@
 
 .todo-container {
   display: grid;
-  grid-template-columns: 100%;
-  grid-template-rows: 5rem 1fr 5rem;
+  grid-auto-rows: 5rem minmax(0, 1fr) 7rem;
   grid-template-areas: 'header'
                        'main'
                        'footer';
-  width: 100%;
-  height: 100vh;
+  // width: 100%;
+  min-height: 100%;
   background-color: var(--secondary-color);
 }
 
@@ -17,8 +16,9 @@
 }
 .todo__main {
   grid-area: main;
-  height: 100%;
+  padding-bottom: 2rem;
 }
 .todo__footer {
   grid-area: footer;
+  align-self: center;
 }

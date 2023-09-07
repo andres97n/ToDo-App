@@ -1,0 +1,6 @@
+<div class="todo-items__container">
+  <todo-card 
+    *ngFor="let item of todoItems; let i = index"
+    [type]="todoType"
+  />
+</div>

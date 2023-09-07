@@ -16,19 +16,15 @@ export class TodoListPageComponent {
     toggle: ['todo']
   });
 
-  stateOptions: MenuToggle[] = [
+  public stateOptions: MenuToggle[] = [
     { label: 'Por Hacer', value: MenuValues.todo },
-    { label: 'Realizados', value: MenuValues.done }
+    { label: 'Realizadas', value: MenuValues.done }
   ];
 
-  get toggleValue(): MenuValues{
+  get toggleValue(): MenuValues {
     if (!this.menuForm.get('toggle')) return MenuValues.todo;
 
     return this.menuForm.get('toggle')!.value;
-  }
-
-  isToDoRealized(): boolean {
-    return this.toggleValue === MenuValues.done;
   } 
 
   isToDoNew(): boolean {

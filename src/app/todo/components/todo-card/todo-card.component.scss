@@ -23,21 +23,56 @@
 }
 
 .todo-card__body {
+  overflow-x: hidden;
+  overflow-y: auto;
+  scrollbar-width: auto;
+  scrollbar-color: #fff #ffffff;
+
+  &::-webkit-scrollbar {
+    width: 16px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: #ffffff;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: #fff;
+    border-radius: 10px;
+    border: 3px solid #ffffff;
+  }
+
+  &:hover,
+  &:active {
+    scrollbar-color: var(--primary-color) #ffffff;
+
+    &::-webkit-scrollbar-thumb {
+      background-color: var(--primary-color);
+    }
+  }
+}
+
+.todo-card__content {
   display: flex;
   flex-direction: column;
   row-gap: 0.2rem;
-
+  height: 100%;
+  
   .todo-card__content-item {
     display: grid;
     grid-template-columns: 10% 1fr;
     border: 2px solid var(--surface-500);
     border-radius: 0.5rem;
-    // column-gap: 0.5rem;
     
-    p-checkbox {
+    p-checkbox, i {
       place-self: center;
     }
 
+    i {
+      color: var(--primary-color);
+      font-size: 1.3rem;
+    }
+    
     label {
       border-left: 2px solid var(--surface-500);
       padding: 0.3rem;
@@ -45,12 +80,25 @@
       overflow: hidden;
     }
   }
+  
+  .low_priority {
+    border-left: 5px solid var(--primary-color);
+  }
+  
+  .medium_priority {
+    border-left: 5px solid #FFA10B;
+  }
+  
+  .high_priority {
+    border-left: 5px solid #D82B09;
+  }
 }
 
 .todo-card__footer {
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
+  column-gap: 0.5rem;
   width: 100%;
 }

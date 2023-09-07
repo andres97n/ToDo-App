@@ -13,8 +13,7 @@ import { TodoListPageComponent } from './pages/todo-list-page/todo-list-page.com
 import { FooterComponent } from './components/footer/footer.component';
 import { HeaderComponent } from './components/header/header.component';
 import { TodoCardComponent } from './components/todo-card/todo-card.component';
-import { TodoNewComponent } from './components/todo-new/todo-new.component';
-import { TodoRealizedComponent } from './components/todo-realized/todo-realized.component';
+import { TodoItemsComponent } from './components/todo-items/todo-items.component';
 
 
 @NgModule({
@@ -25,8 +24,7 @@ import { TodoRealizedComponent } from './components/todo-realized/todo-realized.
     FooterComponent,
     HeaderComponent,
     TodoCardComponent,
-    TodoNewComponent,
-    TodoRealizedComponent
+    TodoItemsComponent
   ],
   imports: [
     CommonModule,

@@ -1,6 +1,9 @@
 p-calendar.ng-dirty.ng-invalid > .p-calendar > .p-inputtext {
     @include invalid-input();
 }
+// p-calendar .p-inputtext{
+//     width: 100%;
+// }
 
 .p-datepicker {
     padding: $calendarPadding;
