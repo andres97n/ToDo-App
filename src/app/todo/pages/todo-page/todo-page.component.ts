@@ -1,30 +1,18 @@
-import { Component, computed, signal } from '@angular/core';
-import { Priority } from '../../interfaces/Priority.interface';
+import { Component, OnInit, inject, signal } from '@angular/core';
+import { Router } from '@angular/router';
 
 
 @Component({
   templateUrl: './todo-page.component.html',
   styleUrls: ['./todo-page.component.scss']
 })
-export class TodoPageComponent {
+export class TodoPageComponent implements OnInit{
 
-  public todoDetailActive = signal<boolean>(false);
-  public isTodoDetailActive = computed( () => this.todoDetailActive() );
+  private _route = inject( Router );
+  public todoGroupId = signal<string>('');
 
-  public priorities = signal<Priority[]>([
-    { name: 'Ninguna', code: 'N' },
-    { name: 'Baja', code: 'B' },
-    { name: 'Media', code: 'M' },
-    { name: 'Alta', code: 'A' },
-  ]);
-
-  public stateOptions: any[] = [
-    {label: 'Hoy', value: 'today'}, 
-    {label: 'Mañana', value: 'tomorrow'}
-  ];
-
-  setTodoDetailActive(): void {
-    this.todoDetailActive.update( current => !current );
+  ngOnInit(): void {
+    
   }
 
 }

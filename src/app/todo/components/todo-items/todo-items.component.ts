@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 
-import { MenuValues } from '../../interfaces/menu-toggle.interface';
+import { MenuValues } from '../../interfaces/Menu-Toggle.interface';
 
 
 

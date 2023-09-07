@@ -1,31 +1,62 @@
-<form class="todo__item-container">
+<form 
+  class="todo__item-container"
+  [formGroup]="todoForm"
+  (ngSubmit)="onSubmit()"
+>
   <div class="todo__item-header">
     <span class="p-input-icon-left">
       <i class="pi pi-plus"></i>
-      <input type="text" pInputText/>
+      <input type="text" 
+             formControlName="title" 
+             pInputText
+             [ngClass]="{ 'ng-invalid ng-dirty': isTitleFieldInvalid() }"
+
+      />
     </span>
-    <p-button 
-      [icon]="(!isTodoDetailActive()) ?'pi pi-angle-down' :'pi pi-angle-up'"
-      (onClick)="setTodoDetailActive()"
+    <p-button [icon]="
+                (!isTodoDetailActive()) 
+                  ?'pi pi-angle-down' 
+                  :'pi pi-angle-up'"
+              (onClick)="setTodoDetailActive()"
+              type="button"
     ></p-button>
   </div>
   <div class="todo__item-body" *ngIf="isTodoDetailActive()">
     <div class="todo__item-body_resume">
-      <textarea pInputTextarea [autoResize]="false"></textarea>
+      <textarea pInputTextarea 
+                formControlName="detail" 
+                [autoResize]="false"
+      ></textarea>
     </div>
     <div class="todo__item-body_date">
-      <label for="">Fecha Límite</label>
+      <label>Fecha Límite</label>
       <div>
-        <p-selectButton [options]="stateOptions" optionLabel="label" optionValue="value"></p-selectButton>
-        <p-calendar></p-calendar>
+        <p-selectButton [options]="stateOptions" 
+                        optionLabel="label" 
+                        optionValue="value"
+                        formControlName="state" 
+        ></p-selectButton>
+        <p-calendar formControlName="date"></p-calendar>
       </div>
     </div>
     <div class="todo__item-body_priority">
-      <label for="">Prioridad</label>
-      <p-dropdown [options]="priorities()" optionLabel="name"></p-dropdown>
+      <label>Prioridad</label>
+      <p-dropdown [options]="priorities()" 
+                  formControlName="priority" 
+                  optionLabel="name"
+      ></p-dropdown>
     </div>
     <div class="todo__item-body_action">
-      <p-button icon="pi pi-trash" styleClass="p-button-danger"></p-button>
+      <p-button icon="pi pi-save"
+                type="submit"
+                (onClick)="onSubmit()"
+                id="todo__item-body_save-button"
+      ></p-button>
+      <p-button icon="pi pi-trash" 
+                styleClass="p-button-danger"
+                (onClick)="deleteToDo()"
+                *ngIf="!isNewTodo"
+      ></p-button>
     </div>
   </div>
 </form>

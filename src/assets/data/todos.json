@@ -1,0 +1,80 @@
+[
+  {
+    "id": 1,
+    "title": "Learn Frameworks",
+    "completed": false,
+    "start_date": "2013-10-21T13:28:06.419Z",
+    "end_date": "2013-10-21T13:28:06.419Z",
+    "todos": [
+      {
+        "id": 1,
+        "task": "Learn Angular with Typescript",
+        "details": "See Github Repositories",
+        "start_date": "2013-10-21T13:28:06.419Z",
+        "task_end_date": "2013-10-21T13:28:06.419Z",
+        "end_date": "2013-10-21T13:28:06.419Z",
+        "taskDone": false,
+        "priority": 1
+      },
+      {
+        "id": 2,
+        "task": "Learn React with Typescript",
+        "details": "See Github Repositories",
+        "start_date": "2013-10-21T13:28:06.419Z",
+        "task_end_date": "2013-10-21T13:28:06.419Z",
+        "end_date": "2013-10-21T13:28:06.419Z",
+        "taskDone": false,
+        "priority": 3
+      },
+      {
+        "id": 3,
+        "task": "Learn Vue with Typescript",
+        "details": "See Github Repositories",
+        "start_date": "2013-10-21T13:28:06.419Z",
+        "task_end_date": "2013-10-21T13:28:06.419Z",
+        "end_date": "2013-10-21T13:28:06.419Z",
+        "taskDone": false,
+        "priority": 2
+      }
+    ]
+  },
+  {
+    "id": 2,
+    "title": "Work",
+    "completed": false,
+    "start_date": "2013-10-21T13:28:06.419Z",
+    "end_date": "2013-10-21T13:28:06.419Z",
+    "todos": [
+      {
+        "id": 4,
+        "task": "Testing",
+        "details": "See Github Repositories",
+        "start_date": "2013-10-21T13:28:06.419Z",
+        "task_end_date": "2013-10-21T13:28:06.419Z",
+        "end_date": "2013-10-21T13:28:06.419Z",
+        "taskDone": false,
+        "priority": 1
+      },
+      {
+        "id": 5,
+        "task": "Public Repository",
+        "details": "See Github Repositories",
+        "start_date": "2013-10-21T13:28:06.419Z",
+        "task_end_date": "2013-10-21T13:28:06.419Z",
+        "end_date": "2013-10-21T13:28:06.419Z",
+        "taskDone": false,
+        "priority": 2
+      },
+      {
+        "id": 6,
+        "task": "Deploy",
+        "details": "See Github Repositories",
+        "start_date": "2013-10-21T13:28:06.419Z",
+        "task_end_date": "2013-10-21T13:28:06.419Z",
+        "end_date": "2013-10-21T13:28:06.419Z",
+        "taskDone": false,
+        "priority": 3
+      }
+    ]
+  }
+]

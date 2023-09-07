@@ -1,7 +1,7 @@
 
 type PriorityNames = 'Ninguna' | 'Baja' | 'Media' | 'Alta';
 
-type PriorityValues = 'N' | 'B' | 'M' | 'A';
+export type PriorityValues = 0 | 1 | 2 | 3;
 
 export interface Priority {
   name: PriorityNames;

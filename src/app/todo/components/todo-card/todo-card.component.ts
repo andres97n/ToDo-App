@@ -1,7 +1,7 @@
 import { Component, Input, inject } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 
-import { MenuValues } from '../../interfaces/menu-toggle.interface';
+import { MenuValues } from '../../interfaces/Menu-Toggle.interface';
 
 
 @Component({

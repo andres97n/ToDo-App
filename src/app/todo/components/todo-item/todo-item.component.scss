@@ -5,10 +5,6 @@
   border-top-left-radius: 0.5rem;
   border-top-right-radius: 0.5rem;
   background-color: #4a5759;
-
-  // input {
-  //   width: 100%;
-  // }
 }
 
 .todo__item-header {
@@ -51,11 +47,10 @@
       width: 100%;
       display: flex;
       flex-wrap: wrap;
-      justify-content: space-between;
-      align-self: center;
 
       p-calendar {
-        width: 40%;
+        flex-grow: 1;
+        flex-basis: 35%;
       }
     }
 
@@ -78,6 +73,10 @@
     display: flex;
     justify-content: flex-end;
     align-items: flex-end;
+
+    #todo__item-body_save-button {
+      flex-grow: 1;
+    }
   }
 
 }
