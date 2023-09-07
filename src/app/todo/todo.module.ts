@@ -14,6 +14,7 @@ import { FooterComponent } from './components/footer/footer.component';
 import { HeaderComponent } from './components/header/header.component';
 import { TodoCardComponent } from './components/todo-card/todo-card.component';
 import { TodoItemsComponent } from './components/todo-items/todo-items.component';
+import { TodoItemComponent } from './components/todo-item/todo-item.component';
 
 
 @NgModule({
@@ -24,7 +25,8 @@ import { TodoItemsComponent } from './components/todo-items/todo-items.component
     FooterComponent,
     HeaderComponent,
     TodoCardComponent,
-    TodoItemsComponent
+    TodoItemsComponent,
+    TodoItemComponent
   ],
   imports: [
     CommonModule,

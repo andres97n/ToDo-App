@@ -1,60 +1,34 @@
 
-.todo__container {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  row-gap: 2rem;
-}
 
-.todo__group-container {
-  display: grid;
-  grid-template-columns: 20% 1fr 20%;
-  justify-items: center;
+.todo__item-container{
   width: 100%;
-}
-
-.todo__items {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  justify-content: center;
-  row-gap: 1rem;
-  width: 100%;
-
-  .todo__item-title {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    width: 100%;
-
-    input {
-      width: 40%;
-    }
-  }
-}
-  
-.todo__item-header {
-  display: inline-block;
-  margin: auto;
-  background-color: #4a5759;
-  padding: 1rem;
   border-top-left-radius: 0.5rem;
   border-top-right-radius: 0.5rem;
+  background-color: #4a5759;
+
+  // input {
+  //   width: 100%;
+  // }
+}
+
+.todo__item-header {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  justify-items: stretch;
+  padding: 1rem;
 }
 
 .todo__item-body {
   display: grid;
   grid-template-columns: 55% 1fr;
-  grid-template-rows: repeat(3, 1fr);
+  grid-template-rows: 2fr 2fr 1fr;
   grid-template-areas: 'resume date'
                        'resume priority'
                        'resume action';
   background-color: #4a5759;
-  // justify-items: stretch;
   align-items: stretch;
   padding: 1rem;
-  gap: 1rem;
+  gap: 0.5rem;
 
   .todo__item-body_resume {
     grid-area: resume;
@@ -76,12 +50,15 @@
     div {
       width: 100%;
       display: flex;
+      flex-wrap: wrap;
       justify-content: space-between;
+      align-self: center;
+
+      p-calendar {
+        width: 40%;
+      }
     }
 
-    p-calendar {
-      width: 8rem;
-    }
   }
 
   .todo__item-body_priority {

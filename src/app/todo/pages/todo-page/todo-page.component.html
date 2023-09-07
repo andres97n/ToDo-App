@@ -7,15 +7,19 @@
         <input type="text" pInputText placeholder="Título del Grupo"/>
         <p-button icon="pi pi-save"></p-button>
       </div>
-      <form >
+      <todo-item [style]="{ width: '60%' }"/>
+      <!-- <form >
         <div class="todo__item-header">
           <span class="p-input-icon-left">
             <i class="pi pi-plus"></i>
             <input type="text" pInputText/>
-            <p-button icon="pi pi-angle-down"></p-button>
+            <p-button 
+              [icon]="(!isTodoDetailActive()) ?'pi pi-angle-down' :'pi pi-angle-up'"
+              (onClick)="setTodoDetailActive()"
+            ></p-button>
           </span>
         </div>
-        <div class="todo__item-body" *ngIf="true">
+        <div class="todo__item-body" *ngIf="isTodoDetailActive()">
           <div class="todo__item-body_resume">
             <textarea pInputTextarea [autoResize]="false"></textarea>
           </div>
@@ -28,11 +32,13 @@
           </div>
           <div class="todo__item-body_priority">
             <label for="">Prioridad</label>
-            <p-dropdown [options]="cities" optionLabel="name"></p-dropdown>
+            <p-dropdown [options]="priorities()" optionLabel="name"></p-dropdown>
           </div>
-          <div class="todo__item-body_action"></div>
+          <div class="todo__item-body_action">
+            <p-button icon="pi pi-trash" styleClass="p-button-danger"></p-button>
+          </div>
         </div>
-      </form>
+      </form> -->
     </div>
     <div></div>
   </div>

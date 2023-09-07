@@ -14,13 +14,16 @@
       </form>
       <hr class="todo-list__separator">
       <div class="todo-list__items">
+        <h2 *ngIf="isToDoNew() && isTodoListEmpty()">Aún no se ha subido ningún grupo de Tareas prueba a crear uno</h2>
+
+        <h2 *ngIf="!isToDoNew() && isTodoListEmpty()">Aún no se ha completado ningún grupo de Tareas</h2>
         <todo-items 
-          [todoItems]="['hola']" 
+          [todoItems]="todoList()" 
           [todoType]="toggleValue"
           *ngIf="isToDoNew()" 
         />
         <todo-items 
-          [todoItems]="['chau']" 
+          [todoItems]="todoList()" 
           [todoType]="toggleValue"
           *ngIf="!isToDoNew()" 
         />

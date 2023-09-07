@@ -2,11 +2,17 @@ import { Component, computed, signal } from '@angular/core';
 import { Priority } from '../../interfaces/Priority.interface';
 
 
+interface DateSelection {
+  label: string;
+  value: 'today' | 'tomorrow';
+}
+
 @Component({
-  templateUrl: './todo-page.component.html',
-  styleUrls: ['./todo-page.component.scss']
+  selector: 'todo-item',
+  templateUrl: './todo-item.component.html',
+  styleUrls: ['./todo-item.component.scss']
 })
-export class TodoPageComponent {
+export class TodoItemComponent {
 
   public todoDetailActive = signal<boolean>(false);
   public isTodoDetailActive = computed( () => this.todoDetailActive() );
@@ -18,7 +24,7 @@ export class TodoPageComponent {
     { name: 'Alta', code: 'A' },
   ]);
 
-  public stateOptions: any[] = [
+  public stateOptions: DateSelection[] = [
     {label: 'Hoy', value: 'today'}, 
     {label: 'Mañana', value: 'tomorrow'}
   ];

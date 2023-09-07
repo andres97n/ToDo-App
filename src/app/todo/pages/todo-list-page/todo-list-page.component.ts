@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 
 import { MenuToggle, MenuValues } from '../../interfaces/menu-toggle.interface';
@@ -11,7 +11,8 @@ import { MenuToggle, MenuValues } from '../../interfaces/menu-toggle.interface';
 export class TodoListPageComponent {
 
   private _fb = inject( FormBuilder );
-  
+  public todoList = signal<any[]>([]);
+
   public menuForm: FormGroup = this._fb.group({
     toggle: ['todo']
   });
@@ -26,6 +27,10 @@ export class TodoListPageComponent {
 
     return this.menuForm.get('toggle')!.value;
   } 
+
+  isTodoListEmpty(): boolean {
+    return this.todoList.length === 0;
+  }
 
   isToDoNew(): boolean {
     return this.toggleValue === MenuValues.todo;
