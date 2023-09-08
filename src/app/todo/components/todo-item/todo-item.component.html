@@ -1,16 +1,18 @@
-<form 
-  class="todo__item-container"
-  [formGroup]="todoForm"
-  (ngSubmit)="onSubmit()"
+<form class="todo__item-container"
+      [formGroup]="todoForm"
+      (ngSubmit)="onSubmit()"
+      [ngClass]="{ 
+        'low_priority': todoPriority() === 1,
+        'medium_priority': todoPriority() === 2, 
+        'high_priority': todoPriority() === 3, 
+      }"
 >
   <div class="todo__item-header">
     <span class="p-input-icon-left">
       <i class="pi pi-plus"></i>
       <input type="text" 
-             formControlName="title" 
+             formControlName="task" 
              pInputText
-             [ngClass]="{ 'ng-invalid ng-dirty': isTitleFieldInvalid() }"
-
       />
     </span>
     <p-button [icon]="
@@ -34,28 +36,29 @@
         <p-selectButton [options]="stateOptions" 
                         optionLabel="label" 
                         optionValue="value"
-                        formControlName="state" 
+                        (onOptionClick)="onDateSelectionChange($event)"
         ></p-selectButton>
-        <p-calendar formControlName="date"></p-calendar>
+        <p-calendar formControlName="date" dateFormat="dd/mm/yy"></p-calendar>
       </div>
     </div>
     <div class="todo__item-body_priority">
       <label>Prioridad</label>
-      <p-dropdown [options]="priorities()" 
+      <p-dropdown [options]="prioritiesSelect" 
                   formControlName="priority" 
                   optionLabel="name"
+                  (onClick)="onPriorityChange()"
       ></p-dropdown>
     </div>
     <div class="todo__item-body_action">
       <p-button icon="pi pi-save"
                 type="submit"
                 (onClick)="onSubmit()"
-                id="todo__item-body_save-button"
+                [ngClass]="{ 'space-beetween' : !isEmptyForm() }"
       ></p-button>
       <p-button icon="pi pi-trash" 
                 styleClass="p-button-danger"
                 (onClick)="deleteToDo()"
-                *ngIf="!isNewTodo"
+                *ngIf="!isEmptyForm()"
       ></p-button>
     </div>
   </div>

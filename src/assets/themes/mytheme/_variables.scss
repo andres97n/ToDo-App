@@ -40,6 +40,18 @@ $colors: (
 @import './variables/_media';
 @import './variables/_misc';
 
+.low_priority {
+    border-left: 5px solid var(--primary-color);
+  }
+  
+.medium_priority {
+    border-left: 5px solid #FFA10B;
+}
+
+.high_priority {
+    border-left: 5px solid #D82B09;
+}
+
 :root {
     --surface-a:#ffffff;
     --surface-b:#f8f9fa;

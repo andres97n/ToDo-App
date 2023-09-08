@@ -1,15 +1,13 @@
-import { Component, Input, OnInit, computed, inject, signal } from '@angular/core';
+import { Component, Input, OnInit, computed, effect, inject, signal } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 
-import { Priority } from '../../interfaces/Priority.interface';
+import * as dayjs from 'dayjs'
 
-import { ValidatorsService } from 'src/app/shared/services/validators.service';
+import { SelectButtonOptionClickEvent } from 'primeng/selectbutton';
 
+import { Todo, Priority, DateSelection } from '../../interfaces';
+import { dateStates, priorities, getResetForm } from '../../helpers/';
 
-interface DateSelection {
-  label: string;
-  value: 'today' | 'tomorrow';
-}
 
 @Component({
   selector: 'todo-item',
@@ -19,48 +17,79 @@ interface DateSelection {
 export class TodoItemComponent implements OnInit{
 
   @Input()
-  public todo: any;
+  public todo!: Todo;
 
   private _fb = inject( FormBuilder );
-  private _validatorsService = inject( ValidatorsService );
   
-  public todoDetailActive = signal<boolean>(false);
   public isNewTodo = signal<boolean>(true);
+  public todoDetailActive = signal<boolean>(false);
+  public todoPriority = signal<number>(0);
+
   public isTodoDetailActive = computed( () => this.todoDetailActive() );
+  public isEmptyForm = computed( () => this.isNewTodo() );
+
   public todoForm = this._fb.group({
-    title: ['', [ Validators.required ]],
+    task: ['', [ Validators.required ]],
     detail: [''],
     date: [''],
-    priority: [''],
-    state: [''],
+    priority: [{ name: 'Ninguna', code: 0 }],
   });
 
-  public priorities = signal<Priority[]>([
-    { name: 'Ninguna', code: 0 },
-    { name: 'Baja', code: 1 },
-    { name: 'Media', code: 2 },
-    { name: 'Alta', code: 3 },
-  ]);
+  public putDataInFormEffect = effect( () => {
+    if ( !this.isEmptyForm() && this.todo.id ) {
+      this.todoForm.reset({ ...getResetForm });
+    } 
+  });
 
-  public stateOptions: DateSelection[] = [
-    {label: 'Hoy', value: 'today'}, 
-    {label: 'Mañana', value: 'tomorrow'}
-  ];
+  get prioritiesSelect(): Priority[] {
+    return [ ...priorities ];
+  }
 
-  setTodoDetailActive(): void {
-    // if (this.isNewTodo) return;
-    this.todoDetailActive.update( current => !current );
+  get stateOptions(): DateSelection[] {
+    return [ ...dateStates ];
   }
 
   ngOnInit(): void {
-    if (this.todo) {
-      this.isNewTodo.update(() => true );
+    if (this.todo.id) {
+      this.isNewTodo.update(() => false );
       return;
     }
   }
 
-  isTitleFieldInvalid(): boolean | null {
-    return this._validatorsService.isInvalidField( this.todoForm, 'title' );
+  setTodoDetailActive(): void {
+    this.todoDetailActive.update( current => !current );
+  }
+
+  updatePriorityTodo( value: number ): void {
+    this.todoPriority.update( () => value );
+    return;
+  }
+
+  onPriorityChange(): void {
+    const priorityField = this.todoForm.get('priority');
+    
+    if ( !priorityField ) return;
+    
+    this.updatePriorityTodo( priorityField.value!.code );
+    return;
+  }
+
+  onDateSelectionChange( event: SelectButtonOptionClickEvent ): void {
+    const selectedDated = event.option;
+    const { value } = selectedDated;
+    const dateField = this.todoForm.get('date');
+    const today = dayjs();
+    
+    if ( !dateField ) return;
+    
+    if ( value === 'today' ) {
+      dateField.setValue( today.format('DD/MM/YYYY') );
+    }  
+      
+    if ( value === 'tomorrow' ) {
+      dateField.setValue( today.add(1, 'day').format('DD/MM/YYYY') );
+    }
+    return;
   }
 
   onSubmit(): void {
@@ -69,17 +98,21 @@ export class TodoItemComponent implements OnInit{
       return;
     } 
 
-    console.log( this.todoForm.value );
-    this.todoForm.reset();
+    const todoId: number = Number(Math.floor(Math.random() * 100000).toString());
+  
+    this.todoForm.reset({
+      task: '',
+      detail: '',
+      date: '',
+      priority: { name: 'Ninguna', code: 0 },
+    });
+
+    this.updatePriorityTodo(0);
+    return;
   }
 
   deleteToDo(): void {
 
-  }
-
-  onKeyPress( ): void {
-    console.log(event);
-    
   }
 
 }

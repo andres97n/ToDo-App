@@ -5,6 +5,10 @@
   border-top-left-radius: 0.5rem;
   border-top-right-radius: 0.5rem;
   background-color: #4a5759;
+
+  label {
+    color: #fff;
+  }
 }
 
 .todo__item-header {
@@ -17,7 +21,7 @@
 .todo__item-body {
   display: grid;
   grid-template-columns: 55% 1fr;
-  grid-template-rows: 2fr 2fr 1fr;
+  grid-template-rows: 3fr 2fr 1fr;
   grid-template-areas: 'resume date'
                        'resume priority'
                        'resume action';
@@ -42,15 +46,17 @@
     flex-wrap: nowrap;
     width: 100%;
     row-gap: 0.5rem;
-
+    
     div {
       width: 100%;
       display: flex;
       flex-wrap: wrap;
+      align-items: center;
+      gap: 0.2rem;
 
       p-calendar {
         flex-grow: 1;
-        flex-basis: 35%;
+        flex-basis: 40%;
       }
     }
 
@@ -72,11 +78,14 @@
     grid-area: action;
     display: flex;
     justify-content: flex-end;
-    align-items: flex-end;
+    // align-items: flex-end;
 
-    #todo__item-body_save-button {
+    .space-beetween {
       flex-grow: 1;
+
     }
+    // #todo__item-body_save-button {
+    // }
   }
 
 }

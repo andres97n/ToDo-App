@@ -1,5 +1,5 @@
 
-type PriorityNames = 'Ninguna' | 'Baja' | 'Media' | 'Alta';
+export type PriorityNames = 'Ninguna' | 'Baja' | 'Media' | 'Alta';
 
 export type PriorityValues = 0 | 1 | 2 | 3;
 
