@@ -8,6 +8,7 @@ import { CheckboxModule } from 'primeng/checkbox';
 import { InputTextareaModule } from 'primeng/inputtextarea';
 import { DropdownModule } from 'primeng/dropdown';
 import { CalendarModule } from 'primeng/calendar';
+import { DialogModule } from 'primeng/dialog';
 
 
 
@@ -21,6 +22,7 @@ import { CalendarModule } from 'primeng/calendar';
     InputTextareaModule,
     DropdownModule,
     CalendarModule,
+    DialogModule,
   ],
 })
 export class PrimengModule { }

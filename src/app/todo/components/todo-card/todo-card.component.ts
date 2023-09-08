@@ -1,7 +1,7 @@
 import { Component, Input, inject } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 
-import { MenuValues } from '../../interfaces/Menu-Toggle.interface';
+import { TodoGroup, MenuValues } from '../../interfaces';
 
 
 @Component({
@@ -12,6 +12,9 @@ import { MenuValues } from '../../interfaces/Menu-Toggle.interface';
 export class TodoCardComponent {
 
   private _fb = inject( FormBuilder );
+  
+  @Input()
+  public todoGroup!: TodoGroup;
   
   @Input()
   public type!: MenuValues;

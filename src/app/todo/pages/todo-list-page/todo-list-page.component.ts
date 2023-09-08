@@ -1,39 +1,74 @@
-import { Component, inject, signal } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { Component, OnInit, computed, inject, signal } from '@angular/core';
+import { FormControl } from '@angular/forms';
+import { Router } from '@angular/router';
 
-import { MenuToggle, MenuValues } from '../../interfaces/Menu-Toggle.interface';
+import * as dayjs from 'dayjs'
+
+import { MenuToggle, MenuValues, TodoGroup } from '../../interfaces/';
+
+import { TodoService } from '../../services/todo.service';
+import { todoStateOptions } from '../../helpers';
 
 
 @Component({
   templateUrl: './todo-list-page.component.html',
   styleUrls: ['./todo-list-page.component.scss']
 })
-export class TodoListPageComponent {
+export class TodoListPageComponent implements OnInit{
 
-  private _fb = inject( FormBuilder );
-  public todoList = signal<any[]>([]);
+  private _todoService = inject( TodoService );
+  private _router = inject( Router );
 
-  public menuForm: FormGroup = this._fb.group({
-    toggle: ['todo']
-  });
+  private _todoGroupsList = signal<TodoGroup[]>([]);
 
-  public stateOptions: MenuToggle[] = [
-    { label: 'Por Hacer', value: MenuValues.todo },
-    { label: 'Realizadas', value: MenuValues.done }
-  ];
+  public visible: boolean = false;
+  public todoGroupsList = computed( () => this._todoGroupsList() );
+
+
+  public titleInput = new FormControl('');
+  public toggleButton = new FormControl('todo');
+
+  get stateOptions(): MenuToggle[] {
+    return todoStateOptions;
+  }
 
   get toggleValue(): MenuValues {
-    if (!this.menuForm.get('toggle')) return MenuValues.todo;
-
-    return this.menuForm.get('toggle')!.value;
+    return this.toggleButton.value as MenuValues;
   } 
 
+  ngOnInit(): void {
+    this._todoGroupsList.update( () => this._todoService.todoGroupList );
+    
+  }
+
   isTodoListEmpty(): boolean {
-    return this.todoList.length === 0;
+    return this.todoGroupsList().length === 0;
   }
 
   isToDoNew(): boolean {
     return this.toggleValue === MenuValues.todo;
+  }
+
+  changeVisibleState( state: boolean ): void {
+    this.visible = state;
+  }
+
+  saveTodoGroup(): void {
+    if ( this.titleInput.value === '' ) return; 
+
+    const todoGroupId: number = Number(Math.floor(Math.random() * 100000).toString());
+    const newTodoGroup: TodoGroup = {
+      id: todoGroupId,
+      title: this.titleInput.value!,
+      start_date: dayjs().format('DD/MM/YYYY'),
+      completed: false,
+      todos: [],
+    }
+    this._todoService.setTodoGroup( newTodoGroup );
+    this.titleInput.setValue('');
+    this.changeVisibleState(false);
+    this._router.navigateByUrl(`/dashboard/todo/${todoGroupId}`);
+    return;
   }
 
 }

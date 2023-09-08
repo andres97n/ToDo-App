@@ -4,32 +4,32 @@
   <div class="todo-list__cards-container">
     <div></div>
     <div class="todo-list__content">
-      <form [formGroup]="menuForm">
+      <!-- <form [formGroup]="menuForm"> -->
         <p-selectButton 
           [options]="stateOptions" 
-          formControlName="toggle" 
+          [formControl]="toggleButton" 
           optionLabel="label" 
           optionValue="value"
         ></p-selectButton>
-      </form>
+      <!-- </form> -->
       <hr class="todo-list__separator">
       <div class="todo-list__items">
         <h2 *ngIf="isToDoNew() && isTodoListEmpty()">Aún no se ha subido ningún grupo de Tareas prueba a crear uno</h2>
 
         <h2 *ngIf="!isToDoNew() && isTodoListEmpty()">Aún no se ha completado ningún grupo de Tareas</h2>
         <todo-items 
-          [todoItems]="todoList()" 
+          [todoItems]="todoGroupsList()" 
           [todoType]="toggleValue"
-          *ngIf="isToDoNew()" 
         />
-        <todo-items 
+          <!-- *ngIf="isToDoNew()"  -->
+        <!-- <todo-items 
           [todoItems]="todoList()" 
           [todoType]="toggleValue"
           *ngIf="!isToDoNew()" 
-        />
+        /> -->
         <div 
           class="todo_list__new-button" 
-          routerLink="/dashboard/todo/0"
+          (click)="changeVisibleState( true )"
         >
           <i class="pi pi-plus"></i>
         </div>
@@ -38,3 +38,33 @@
     <div></div>
   </div>
 </div>
+
+<p-dialog header="Nuevo Grupo de Tareas" 
+          [(visible)]="visible"
+          [modal]="true"
+          [draggable]="false"
+          [resizable]="false"
+>
+  <div class="todo-list__dialog-container">
+    <input type="text" 
+           pInputText 
+           placeholder="Título del Grupo"
+           [formControl]="titleInput"
+           class="todo-dialog__input"
+    />
+    <button pButton 
+            pRipple 
+            label="Guardar" 
+            type="submit"
+            icon="pi pi-save"
+            class="todo-dialog__save-button"
+    ></button>
+    <button pButton 
+            pRipple 
+            label="Cancelar" 
+            icon="pi pi-times"
+            class="p-button-danger todo-dialog__delete-button"
+            (click)="changeVisibleState( false )"
+    ></button>
+  </div>
+</p-dialog>

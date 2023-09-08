@@ -1,4 +1,4 @@
-import { Priority, DateSelection } from "../interfaces";
+import { Priority, DateSelection, MenuToggle, MenuValues } from "../interfaces";
 
 
 export const priorities: Priority[] = [
@@ -11,4 +11,9 @@ export const priorities: Priority[] = [
 export const dateStates: DateSelection[] = [
   {label: 'Hoy', value: 'today'}, 
   {label: 'Mañana', value: 'tomorrow'}
+];
+
+export const todoStateOptions: MenuToggle[] = [
+  { label: 'Por Hacer', value: MenuValues.todo },
+  { label: 'Realizadas', value: MenuValues.done }
 ];

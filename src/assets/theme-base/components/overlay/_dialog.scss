@@ -2,6 +2,7 @@
     border-radius: $borderRadius;
     box-shadow: $overlayContainerShadow;
     border: $overlayContentBorder;
+    width: 30vw;
 
     .p-dialog-header {
         border-bottom: $dialogHeaderBorder;

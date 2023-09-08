@@ -1,6 +1,12 @@
 <div class="todo-items__container">
   <todo-card 
-    *ngFor="let item of todoItems; let i = index"
+    ngIf="!isTodoGroupForDo()"
+    *ngFor="let item of todoGroupsForDo(); let i = index"
+    [type]="todoType"
+  />
+  <todo-card 
+    ngIf="!isTodoGroupForDo()"
+    *ngFor="let item of todoGroupsDone(); let i = index"
     [type]="todoType"
   />
 </div>

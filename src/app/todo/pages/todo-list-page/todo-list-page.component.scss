@@ -64,3 +64,28 @@
 
 }
 
+.todo-list__dialog-container {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+  grid-template-areas: 'top top'
+                       'left-button right-button';
+  width: 100%;
+  padding: 2rem 0;
+  row-gap: 1rem;
+  // justify-items: end;
+
+  .todo-dialog__input{
+    grid-area: top;
+  }
+
+  .todo-dialog__save-button {
+    grid-area: left-button;
+    width: 50%;
+  }
+
+  .todo-dialog__delete-button {
+    width: 50%;
+    justify-self: end;
+  }
+}
