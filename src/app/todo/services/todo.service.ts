@@ -26,13 +26,12 @@ export class TodoService {
     if ( this._todoListRaw.default ) {
       this._todoGroups.update( () => this._todoListRaw.default ); 
     }
-
   }
 
-  get todoGroupList(): TodoGroup[]  {
-    console.log(this.todoGroups(), 'holas');
-    return { ...this.todoGroups() };
-  }
+  // get todoGroupList(): TodoGroup[]  {
+  //   console.log(this.todoGroups(), 'holas');
+  //   return { ...this.todoGroups() };
+  // }
 
   get emptyTodo(): Todo {
     return { ...this._emptyTodo };
@@ -47,7 +46,11 @@ export class TodoService {
     const group = this.todoGroups().find(group => group.id === id);
     if (group) {
       group.todos = [ todo, ...group.todos ];
-      this.setTodoGroup( group );
+      this._todoGroups().map( 
+        currentGroup => currentGroup.id === id 
+          ? group 
+          : currentGroup 
+      );
     }
     return;
   }

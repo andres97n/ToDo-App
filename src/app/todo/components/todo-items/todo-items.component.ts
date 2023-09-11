@@ -12,7 +12,7 @@ import { TodoGroup, MenuValues } from '../../interfaces';
 export class TodoItemsComponent implements OnInit {
 
   @Input()
-  public todoItems!: TodoGroup[];
+  public todoGroups!: TodoGroup[];
 
   @Input()
   public todoType!: MenuValues;
@@ -21,32 +21,47 @@ export class TodoItemsComponent implements OnInit {
   private _todoGroupsDone = signal<TodoGroup[]>([]);
 
   public todoGroupsForDo = computed( () => this._todoGroupsForDo() );
-  public todoGroupsDone = computed( () => this._todoGroupsDone() );  
-
+  public todoGroupsDone = computed( () => this._todoGroupsDone() ); 
+  
   ngOnInit(): void {
-    console.log(this.todoItems);
-    console.log(this.todoType);
+    console.log(this.todoGroups);
     this.administrateTodoGroups();
   }
-
+  
   administrateTodoGroups(): void {
-    console.log(this.todoItems);
-    
-    // this.todoItems.forEach((group) => {
-    //   if ( group.completed ) {
-    //     this._todoGroupsDone.update( currentGroups => [...currentGroups, group ] );
-    //   } 
+    const groupsDone: TodoGroup[] = [];
+    const groupsForDo: TodoGroup[] = [];
+
+    this.todoGroups.forEach((group) => {
+      if ( group.completed ) {
+        groupsDone.push( group );
+      } 
       
-    //   if ( !group.completed ) {
-    //     this._todoGroupsForDo.update( currentGroups => [...currentGroups, group ] );
-    //   }    
-    // });
+      if ( !group.completed ) {
+        groupsForDo.push( group );
+      }    
+    });
+
+    this._todoGroupsDone.update( () => groupsDone );
+    this._todoGroupsForDo.update( () => groupsForDo );
   }
 
-  isTodoGroupForDo( todoType: MenuValues ): boolean {
-    if ( todoType === MenuValues.todo ) return true
+  isTodoGroupForDo(): boolean {
+    if ( this.todoType === MenuValues.todo ) return true;
    
     return false;
+  }
+
+  isToDoNew(): boolean {
+    return this.todoType === MenuValues.todo;
+  }
+
+  isTodoListEmpty(): boolean {
+    if (this.todoType === MenuValues.todo) {      
+      return this.todoGroupsForDo().length === 0;
+    }
+
+    return this.todoGroupsDone().length === 0;
   }
    
 }

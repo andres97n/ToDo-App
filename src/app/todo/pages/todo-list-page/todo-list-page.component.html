@@ -4,32 +4,19 @@
   <div class="todo-list__cards-container">
     <div></div>
     <div class="todo-list__content">
-      <!-- <form [formGroup]="menuForm"> -->
-        <p-selectButton 
-          [options]="stateOptions" 
-          [formControl]="toggleButton" 
-          optionLabel="label" 
-          optionValue="value"
-        ></p-selectButton>
-      <!-- </form> -->
+      <p-selectButton 
+        [options]="stateOptions" 
+        [formControl]="toggleButton" 
+        optionLabel="label" 
+        optionValue="value"
+      ></p-selectButton>
       <hr class="todo-list__separator">
       <div class="todo-list__items">
-        <h2 *ngIf="isToDoNew() && isTodoListEmpty()">Aún no se ha subido ningún grupo de Tareas prueba a crear uno</h2>
-
-        <h2 *ngIf="!isToDoNew() && isTodoListEmpty()">Aún no se ha completado ningún grupo de Tareas</h2>
-        <todo-items 
-          [todoItems]="todoGroupsList()" 
-          [todoType]="toggleValue"
+        <todo-items [todoGroups]="todoGroupsList"
+                    [todoType]="toggleValue"
         />
-          <!-- *ngIf="isToDoNew()"  -->
-        <!-- <todo-items 
-          [todoItems]="todoList()" 
-          [todoType]="toggleValue"
-          *ngIf="!isToDoNew()" 
-        /> -->
-        <div 
-          class="todo_list__new-button" 
-          (click)="changeVisibleState( true )"
+        <div class="todo_list__new-button" 
+             (click)="changeVisibleState( true )"
         >
           <i class="pi pi-plus"></i>
         </div>

@@ -1,12 +1,18 @@
 <div class="todo-items__container">
-  <todo-card 
-    ngIf="!isTodoGroupForDo()"
-    *ngFor="let item of todoGroupsForDo(); let i = index"
+  <ng-container *ngIf="isTodoGroupForDo()">
+    <h2 *ngIf="isToDoNew() && isTodoListEmpty()">Aún no se ha subido ningún grupo de Tareas, prueba a crear uno</h2>
+    <todo-card 
+    *ngFor="let group of todoGroupsForDo(); let i = index"
+    [todoGroup]="group"
     [type]="todoType"
-  />
-  <todo-card 
-    ngIf="!isTodoGroupForDo()"
-    *ngFor="let item of todoGroupsDone(); let i = index"
-    [type]="todoType"
-  />
+    />
+  </ng-container>
+  <ng-container *ngIf="!isTodoGroupForDo()">
+    <h2 *ngIf="!isToDoNew() && isTodoListEmpty()">Aún no se ha completado ningún grupo de Tareas</h2>
+    <todo-card 
+      *ngFor="let group of todoGroupsDone(); let i = index"
+      [todoGroup]="group"
+      [type]="todoType"
+    />
+  </ng-container>
 </div>

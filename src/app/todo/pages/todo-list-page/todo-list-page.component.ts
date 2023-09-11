@@ -1,4 +1,4 @@
-import { Component, OnInit, computed, inject, signal } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
 
@@ -6,27 +6,31 @@ import * as dayjs from 'dayjs'
 
 import { MenuToggle, MenuValues, TodoGroup } from '../../interfaces/';
 
-import { TodoService } from '../../services/todo.service';
 import { todoStateOptions } from '../../helpers';
+
+import { TodoService } from '../../services/todo.service';
 
 
 @Component({
   templateUrl: './todo-list-page.component.html',
   styleUrls: ['./todo-list-page.component.scss']
 })
-export class TodoListPageComponent implements OnInit{
+export class TodoListPageComponent {
 
   private _todoService = inject( TodoService );
   private _router = inject( Router );
 
-  private _todoGroupsList = signal<TodoGroup[]>([]);
+  // private _todoGroupsList = signal<TodoGroup[]>([]);
+  // public todoGroupsList = computed( () => this._todoGroupsList() );
 
   public visible: boolean = false;
-  public todoGroupsList = computed( () => this._todoGroupsList() );
-
 
   public titleInput = new FormControl('');
   public toggleButton = new FormControl('todo');
+
+  get todoGroupsList(): TodoGroup[] {
+    return this._todoService.todoGroups();
+  }
 
   get stateOptions(): MenuToggle[] {
     return todoStateOptions;
@@ -34,19 +38,6 @@ export class TodoListPageComponent implements OnInit{
 
   get toggleValue(): MenuValues {
     return this.toggleButton.value as MenuValues;
-  } 
-
-  ngOnInit(): void {
-    this._todoGroupsList.update( () => this._todoService.todoGroupList );
-    
-  }
-
-  isTodoListEmpty(): boolean {
-    return this.todoGroupsList().length === 0;
-  }
-
-  isToDoNew(): boolean {
-    return this.toggleValue === MenuValues.todo;
   }
 
   changeVisibleState( state: boolean ): void {
@@ -64,6 +55,7 @@ export class TodoListPageComponent implements OnInit{
       completed: false,
       todos: [],
     }
+
     this._todoService.setTodoGroup( newTodoGroup );
     this.titleInput.setValue('');
     this.changeVisibleState(false);
