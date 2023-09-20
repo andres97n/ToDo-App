@@ -17,3 +17,11 @@ export const todoStateOptions: MenuToggle[] = [
   { label: 'Por Hacer', value: MenuValues.todo },
   { label: 'Realizadas', value: MenuValues.done }
 ];
+
+export const emptyTodoGroup = {
+  id: 0,
+  title: '',
+  start_date: new Date(),
+  completed: false,
+  todos: [],
+}

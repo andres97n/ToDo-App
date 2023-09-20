@@ -24,8 +24,8 @@ export class TodoItemsComponent implements OnInit {
   public todoGroupsDone = computed( () => this._todoGroupsDone() ); 
   
   ngOnInit(): void {
-    console.log(this.todoGroups);
     this.administrateTodoGroups();
+    console.log(this.todoGroupsDone());
   }
   
   administrateTodoGroups(): void {
@@ -42,8 +42,8 @@ export class TodoItemsComponent implements OnInit {
       }    
     });
 
-    this._todoGroupsDone.update( () => groupsDone );
-    this._todoGroupsForDo.update( () => groupsForDo );
+    this._todoGroupsDone.set( groupsDone );
+    this._todoGroupsForDo.set( groupsForDo );
   }
 
   isTodoGroupForDo(): boolean {
@@ -62,6 +62,10 @@ export class TodoItemsComponent implements OnInit {
     }
 
     return this.todoGroupsDone().length === 0;
+  }
+
+  setTodoGroupsDone( todoGroup: TodoGroup ): void {
+    this._todoGroupsDone.update( groups => [ ...groups, todoGroup ] );
   }
    
 }

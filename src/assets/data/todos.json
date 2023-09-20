@@ -13,7 +13,7 @@
         "start_date": "2013-10-21T13:28:06.419Z",
         "task_end_date": "2013-10-21T13:28:06.419Z",
         "end_date": "2013-10-21T13:28:06.419Z",
-        "taskDone": false,
+        "taskDone": true,
         "priority": 1
       },
       {
@@ -33,7 +33,7 @@
         "start_date": "2013-10-21T13:28:06.419Z",
         "task_end_date": "2013-10-21T13:28:06.419Z",
         "end_date": "2013-10-21T13:28:06.419Z",
-        "taskDone": false,
+        "taskDone": true,
         "priority": 2
       }
     ]
@@ -73,6 +73,35 @@
         "task_end_date": "2013-10-21T13:28:06.419Z",
         "end_date": "2013-10-21T13:28:06.419Z",
         "taskDone": false,
+        "priority": 3
+      }
+    ]
+  },
+  {
+    "id": 3,
+    "title": "Learn English",
+    "completed": true,
+    "start_date": "2013-10-21T13:28:06.419Z",
+    "end_date": "2013-10-21T13:28:06.419Z",
+    "todos": [
+      {
+        "id": 7,
+        "task": "Learn Speaking",
+        "details": "See English Resources",
+        "start_date": "2013-10-21T13:28:06.419Z",
+        "task_end_date": "2013-10-21T13:28:06.419Z",
+        "end_date": "2013-10-21T13:28:06.419Z",
+        "taskDone": true,
+        "priority": 1
+      },
+      {
+        "id": 8,
+        "task": "Learn Reading",
+        "details": "See English Resources",
+        "start_date": "2013-10-21T13:28:06.419Z",
+        "task_end_date": "2013-10-21T13:28:06.419Z",
+        "end_date": "2013-10-21T13:28:06.419Z",
+        "taskDone": true,
         "priority": 3
       }
     ]

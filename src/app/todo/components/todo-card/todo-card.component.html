@@ -1,54 +1,47 @@
 
 <div class="todo-card__container">
   <div class="todo-card__header">
-    <h2>Advanced Card</h2>
+    <h2>{{ todoGroup.title }}</h2>
   </div>
 
   <div class="todo-card__body">
     <form [formGroup]="cardForm" class="todo-card__content">
-      <div class="todo-card__content-item">
-        <p-checkbox 
-          formControlName="check" 
-          [value]="true" 
-          inputId="ny"
-          *ngIf="isTodoType()"
-        ></p-checkbox>
-        <i class="pi pi-check" *ngIf="!isTodoType()"></i>
-        <label for="ny">New Yorksdsssssssssssssssssssssssssssssssssssssssssssssssssss</label>
-      </div>
-      <div class="todo-card__content-item high_priority">
-        <p-checkbox formControlName="check" inputId="ny"></p-checkbox>
-        <label for="ny">New Yorksdsssssssssssssssssssssssssssssssssssssssssssssssssss</label>
-      </div>
-      <div class="todo-card__content-item">
-        <p-checkbox formControlName="check" inputId="ny"></p-checkbox>
-        <label for="ny">New Yorksdsssssssssssssssssssssssssssssssssssssssssssssssssss</label>
-      </div>
-      <div class="todo-card__content-item">
-        <p-checkbox formControlName="check" inputId="ny"></p-checkbox>
-        <label for="ny">New Yorksdsssssssssssssssssssssssssssssssssssssssssssssssssss</label>
-      </div>
-      <div class="todo-card__content-item">
-        <p-checkbox formControlName="check" inputId="ny"></p-checkbox>
-        <label for="ny">New Yorksdsssssssssssssssssssssssssssssssssssssssssssssssssss</label>
-      </div>
-      <div class="todo-card__content-item">
-        <p-checkbox formControlName="check" inputId="ny"></p-checkbox>
-        <label for="ny">New Yorksdsssssssssssssssssssssssssssssssssssssssssssssssssss</label>
-      </div>
+      <ng-container formArrayName="todoItems">
+        <div class="todo-card__content-item" 
+             *ngFor="let todo of todoItemsFormArray.controls; let i = index;">
+          <p-checkbox [formControlName]="i" 
+                      [inputId]="getFormControlName(i)"
+                      [binary]="true"
+                      (onChange)="onCheckChange()"></p-checkbox>
+          <label [for]="getFormControlName(i)">{{ getTodoFieldValueByIndex( i, 'task' ) }}</label>
+        </div>
+      </ng-container>
     </form>
   </div>
 
   <div class="todo-card__footer">
-    <p-button 
-      label="Ver" 
+    <p-button
+      styleClass="p-button-raised"
+      icon="pi pi-plus"
+    ></p-button>
+    <p-button
+      styleClass="p-button-raised p-button-secondary"
       icon="pi pi-file-edit"
     ></p-button>
     <p-button 
-      label="Completar" 
+      styleClass="p-button-raised"
       icon="pi pi-check" 
       styleClass="p-button-success"
       *ngIf="isTodoType()"
     ></p-button>
   </div>
 </div>
+
+<!-- <form class="flex align-items-center gap-1" [formGroup]="formGroup">
+  <div formArrayName="cities">
+    <div *ngFor="let item of testForm.controls; let i = index;">
+      <p-checkbox [formControlName]="i" [inputId]="getLabel(i)" [binary]="true" ></p-checkbox>
+      <label [for]="getLabel(i)">New York</label>
+    </div>
+  </div>
+</form> -->
