@@ -5,30 +5,25 @@
         'low_priority': todoPriority() === 1,
         'medium_priority': todoPriority() === 2, 
         'high_priority': todoPriority() === 3, 
-      }"
->
+      }">
   <div class="todo__item-header">
     <span class="p-input-icon-left">
-      <i class="pi pi-plus"></i>
+      <i [className]="isNewTodo() ? 'pi pi-plus' : 'pi pi-file-edit'"></i>
       <input type="text" 
              formControlName="task" 
-             pInputText
-      />
+             pInputText/>
     </span>
-    <p-button [icon]="
-                (!isTodoDetailActive()) 
-                  ?'pi pi-angle-down' 
-                  :'pi pi-angle-up'"
+    <p-button [icon]="(!isTodoDetailActive()) 
+                ?'pi pi-angle-down' 
+                :'pi pi-angle-up'"
               (onClick)="setTodoDetailActive()"
-              type="button"
-    ></p-button>
+              type="button"></p-button>
   </div>
   <div class="todo__item-body" *ngIf="isTodoDetailActive()">
     <div class="todo__item-body_resume">
       <textarea pInputTextarea 
                 formControlName="detail" 
-                [autoResize]="false"
-      ></textarea>
+                [autoResize]="false"></textarea>
     </div>
     <div class="todo__item-body_date">
       <label>Fecha Límite</label>
@@ -36,9 +31,9 @@
         <p-selectButton [options]="stateOptions" 
                         optionLabel="label" 
                         optionValue="value"
-                        (onOptionClick)="onDateSelectionChange($event)"
-        ></p-selectButton>
-        <p-calendar formControlName="date" dateFormat="dd/mm/yy"></p-calendar>
+                        (onOptionClick)="onDateSelectionChange($event)"></p-selectButton>
+        <p-calendar formControlName="date" 
+                    dateFormat="dd/mm/yy"></p-calendar>
       </div>
     </div>
     <div class="todo__item-body_priority">

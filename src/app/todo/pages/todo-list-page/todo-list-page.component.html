@@ -3,55 +3,31 @@
   <h1>Tus Tareas</h1>
   <div class="todo-list__cards-container">
     <div></div>
+
     <div class="todo-list__content">
-      <p-selectButton 
-        [options]="stateOptions" 
-        [formControl]="toggleButton" 
-        optionLabel="label" 
-        optionValue="value"
-      ></p-selectButton>
+      <p-selectButton [options]="stateOptions" 
+                      [formControl]="toggleButton" 
+                      optionLabel="label" 
+                      optionValue="value"></p-selectButton>
       <hr class="todo-list__separator">
+
       <div class="todo-list__items">
         <todo-items [todoGroups]="todoGroupsList"
-                    [todoType]="toggleValue"
-        />
+                    [todoType]="toggleValue" />
         <div class="todo_list__new-button" 
-             (click)="changeVisibleState( true )"
-        >
+             (click)="changeDialogVisibility( true )">
           <i class="pi pi-plus"></i>
         </div>
+        
       </div>
     </div>
+
     <div></div>
   </div>
 </div>
 
-<p-dialog header="Nuevo Grupo de Tareas" 
-          [(visible)]="visible"
-          [modal]="true"
-          [draggable]="false"
-          [resizable]="false"
->
-  <div class="todo-list__dialog-container">
-    <input type="text" 
-           pInputText 
-           placeholder="Título del Grupo"
-           [formControl]="titleInput"
-           class="todo-dialog__input"
-    />
-    <button pButton 
-            pRipple 
-            label="Guardar" 
-            type="submit"
-            icon="pi pi-save"
-            class="todo-dialog__save-button"
-    ></button>
-    <button pButton 
-            pRipple 
-            label="Cancelar" 
-            icon="pi pi-times"
-            class="p-button-danger todo-dialog__delete-button"
-            (click)="changeVisibleState( false )"
-    ></button>
-  </div>
-</p-dialog>
+<new-value-dialog [dialogVisible]="dialogVisible"
+                  [dialogHeader]="'Nuevo Grupo de Tareas'"
+                  [dialogLabel]="'Título del Grupo'"
+                  (onVisibilityChange)="changeDialogVisibility($event)"
+                  (onValueSave)="saveTodoGroup($event)"/>

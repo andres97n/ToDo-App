@@ -4,6 +4,8 @@ import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 
 import { PrimengModule } from 'src/app/primeng/primeng.module';
 
+import { ValidatorsService } from '../../services/validators.service';
+
 
 
 @Component({
@@ -16,14 +18,17 @@ import { PrimengModule } from 'src/app/primeng/primeng.module';
 export class NewValueDialogComponent {
 
   private _fb = inject( FormBuilder );
+  private _validatorService = inject( ValidatorsService );
 
-  public dialogControl = this._fb.control(
-    '', 
-    [
-      Validators.required,
-      Validators.minLength( 3 ),
-    ]
-  );
+  public dialogForm = this._fb.group({
+    dialog_value: [
+      '', 
+      [ 
+        Validators.required,
+        Validators.minLength( 3 ),
+      ]
+    ],
+  });
   
   @Input()
   public dialogVisible: boolean = false;
@@ -37,43 +42,34 @@ export class NewValueDialogComponent {
   @Output()
   public onValueSave: EventEmitter<string> = new EventEmitter();
 
+  get isInvalidField(): boolean | null {
+    return this._validatorService.isInvalidField( this.dialogForm, 'dialog_value' );
+  }
+
+  get errorMessage(): string | null {
+    return this._validatorService.getErrorMessage( this.dialogForm, 'dialog_value' );
+  }
+
+  resetDialogForm(): void {
+    this.dialogForm.reset({ dialog_value: '' });
+  }
+
   changeDialogVisibility( state: boolean ): void {
     this.onVisibilityChange.emit( state );
 
-    if ( !state ) this.dialogControl.reset();
-  }
-
-  isInvalidField(): boolean | null {    
-    return this.dialogControl.errors && this.dialogControl.touched;
-  }
-
-  getErrorMessage(): string | null {
-    const errors = this.dialogControl.errors || {};
-
-    for (const key of Object.keys(errors) ) {
-      switch( key ) {
-        case 'required':
-          return 'Este campo es requerido';
-
-        case 'minlength':
-          return `Mínimo ${ errors['minlength'].requiredLength } caracteres.`;
-      }
-    }
-
-    return null;
+    if ( !state ) this.resetDialogForm();
   }
 
   onSubmitValue(): void {
-    const controlValue = this.dialogControl.value;
-
-    if ( this.dialogControl.invalid ) {
-      this.dialogControl.markAsTouched();
+    if ( this.dialogForm.invalid ) {
+      this.dialogForm.markAllAsTouched();
       return;
     }
+    
+    const controlValue = this.dialogForm.get('dialog_value')!.value;
 
-    this.onValueSave.emit( controlValue!.toString());
-    this.dialogControl.reset();
-    this.changeDialogVisibility( false );
+    this.onValueSave.emit( controlValue!.toString().trim() );
+    this.changeDialogVisibility( false );    
     return;
   }
 

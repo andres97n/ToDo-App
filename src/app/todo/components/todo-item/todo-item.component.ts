@@ -2,10 +2,10 @@ import { Component, Input, OnInit, computed, effect, inject, signal } from '@ang
 import { FormBuilder, Validators } from '@angular/forms';
 
 import * as dayjs from 'dayjs';
-
 import { SelectButtonOptionClickEvent } from 'primeng/selectbutton';
 
 import { Todo, Priority, DateSelection } from '../../interfaces';
+
 import { dateStates, priorities, getResetForm } from '../../helpers/';
 
 
@@ -41,6 +41,15 @@ export class TodoItemComponent implements OnInit{
     } 
   });
 
+  ngOnInit(): void {
+    
+    if (this.todo.id !== 0) {
+      this.isNewTodo.set(false);
+      this.setTodoToForm();
+      return;
+    }
+  }
+
   get prioritiesSelect(): Priority[] {
     return [ ...priorities ];
   }
@@ -49,11 +58,16 @@ export class TodoItemComponent implements OnInit{
     return [ ...dateStates ];
   }
 
-  ngOnInit(): void {
-    if (this.todo.id) {
-      this.isNewTodo.update(() => false );
-      return;
-    }
+  setTodoToForm(): void {
+    console.log(this.todo);
+
+    this.todoForm.reset({
+      task: this.todo.task,
+      detail: this.todo.details,
+      date: this.todo.task_end_date?.toString() ?? '',
+      priority: { name: 'Ninguna', code: 0 },
+    });
+    return;
   }
 
   setTodoDetailActive(): void {

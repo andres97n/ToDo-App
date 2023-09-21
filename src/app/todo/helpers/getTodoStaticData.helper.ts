@@ -1,4 +1,6 @@
-import { Priority, DateSelection, MenuToggle, MenuValues } from "../interfaces";
+import { Message } from "primeng/api";
+
+import { Priority, DateSelection, MenuToggle, MenuValues, Todo } from "../interfaces";
 
 
 export const priorities: Priority[] = [
@@ -25,3 +27,17 @@ export const emptyTodoGroup = {
   completed: false,
   todos: [],
 }
+
+export const emptyTodo: Todo = {
+  id: 0,
+  task: '',
+  start_date: new Date(),
+};
+
+export const errorMessage = ( summary: string, detail: string ): Message[] => ([
+  {
+    severity: 'error',
+    summary,
+    detail
+  }
+]);

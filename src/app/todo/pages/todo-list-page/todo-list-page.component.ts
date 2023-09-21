@@ -20,12 +20,8 @@ export class TodoListPageComponent {
   private _todoService = inject( TodoService );
   private _router = inject( Router );
 
-  // private _todoGroupsList = signal<TodoGroup[]>([]);
-  // public todoGroupsList = computed( () => this._todoGroupsList() );
+  public dialogVisible: boolean = false;
 
-  public visible: boolean = false;
-
-  public titleInput = new FormControl('');
   public toggleButton = new FormControl('todo');
 
   get todoGroupsList(): TodoGroup[] {
@@ -40,25 +36,21 @@ export class TodoListPageComponent {
     return this.toggleButton.value as MenuValues;
   }
 
-  changeVisibleState( state: boolean ): void {
-    this.visible = state;
+  changeDialogVisibility( state: boolean ): void {
+    this.dialogVisible = state;
   }
 
-  saveTodoGroup(): void {
-    if ( this.titleInput.value === '' ) return; 
-
+  saveTodoGroup( title: string ): void {
     const todoGroupId: number = Number(Math.floor(Math.random() * 100000).toString());
     const newTodoGroup: TodoGroup = {
       id: todoGroupId,
-      title: this.titleInput.value!,
+      title: title,
       start_date: dayjs().format('DD/MM/YYYY'),
       completed: false,
       todos: [],
     }
 
     this._todoService.setTodoGroup( newTodoGroup );
-    this.titleInput.setValue('');
-    this.changeVisibleState(false);
     this._router.navigateByUrl(`/dashboard/todo/${todoGroupId}`);
     return;
   }

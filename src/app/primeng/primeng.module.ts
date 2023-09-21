@@ -9,6 +9,7 @@ import { InputTextareaModule } from 'primeng/inputtextarea';
 import { DropdownModule } from 'primeng/dropdown';
 import { CalendarModule } from 'primeng/calendar';
 import { DialogModule } from 'primeng/dialog';
+import { MessagesModule } from 'primeng/messages';
 
 
 
@@ -23,6 +24,7 @@ import { DialogModule } from 'primeng/dialog';
     DropdownModule,
     CalendarModule,
     DialogModule,
+    MessagesModule,
   ],
 })
 export class PrimengModule { }

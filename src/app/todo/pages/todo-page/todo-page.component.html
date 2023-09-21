@@ -1,14 +1,49 @@
-<div class="todo__container">
-  <h1>Nuevas Tareas</h1>
-  <div class="todo__group-container">
+<div class="todo-group__container">
+  <div>
+    <h1>Grupo de Tareas:</h1>
+    <h2>{{ this.todoGroup().title }}</h2>
+  </div>
+  <div class="todo-group__body">
     <div></div>
-    <div class="todo__items">
-      <div class="todo__item-title">
-        <input type="text" pInputText placeholder="Título del Grupo"/>
-        <p-button icon="pi pi-save"></p-button>
-      </div>
-      <todo-item [todo]="emptyTodo" />
+
+    <div class="todo-items__container">
+      <ng-container *ngIf="isTodoGroupValid">
+        <form class="todo-items__header" [formGroup]="todoGroupForm">
+          <span class="p-float-label">
+            <input type="text"
+                   id="title" 
+                   pInputText 
+                   placeholder="Título del Grupo"
+                   formControlName="title"
+                   [ngClass]="{ 'ng-invalid ng-dirty': isInvalidTitle }"/>
+            <label htmlFor="title">{{
+              ( isInvalidTitle )
+                ? titleErrorMessage
+                : 'Título'
+            }}</label>
+          </span>
+          <p-button icon="pi pi-save" 
+                    type="submit" 
+                    (onClick)="editTodoGroupTitle()"></p-button>
+        </form>
+        <div class="todo-items__body">
+          <todo-item [todo]="todo" 
+                     *ngFor="let todo of todoGroup().todos" 
+                     class="todo-item__edit"/>
+        </div>
+        <hr>
+        <div class="todo-item__new-container">
+          <h3>Nueva Tarea</h3>
+          <todo-item [todo]="newTodo" id="todo-item__new"/>
+        </div>
+      </ng-container>
+      <ng-container *ngIf="!isTodoGroupValid">
+        <p-messages [value]="todoGroupErrorMessage" 
+            [enableService]="false"
+            [closable]="false"></p-messages>
+      </ng-container>
     </div>
+
     <div></div>
   </div>
 </div>
