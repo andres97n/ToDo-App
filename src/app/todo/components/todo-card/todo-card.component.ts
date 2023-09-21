@@ -1,16 +1,14 @@
 import { Component, EventEmitter, Input, OnInit, Output, inject } from '@angular/core';
-import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, FormGroup, } from '@angular/forms';
 
 import { TodoGroup, MenuValues, Todo } from '../../interfaces';
-import { CheckboxChangeEvent } from 'primeng/checkbox';
-import { getTodoGroupCompleted, isTodoGroupComplete } from '../../helpers';
 
+import { 
+  getTodoGroupCompleted, 
+  isTodoGroupComplete, 
+  getTodoGroupToDone, 
+  getCurrentDate } from '../../helpers';
 
-interface CheckState {
-  id: number;
-  taskDone: boolean;
-  task: string;
-}
 
 @Component({
   selector: 'todo-card',
@@ -28,15 +26,16 @@ export class TodoCardComponent implements OnInit{
   public type!: MenuValues;
 
   @Output()
-  public onCompleteTodoGroup: EventEmitter<TodoGroup> = new EventEmitter();
+  public onCheckChangeStatus: EventEmitter<TodoGroup> = new EventEmitter();
 
   public cardForm: FormGroup = this._fb.group({
     todoItems: this._fb.array([]),
   });
 
+  public newInputVisible: boolean = false;
+
   ngOnInit(): void {
     this.setStateChecks();
-    // console.log(this.todoItemsFormArray.controls);
   }
 
   get todoItemsFormArray(): FormArray {
@@ -53,12 +52,18 @@ export class TodoCardComponent implements OnInit{
 
   onCheckChange(): void {
     const todoItems = this.todoItemsFormArray.value;
-    console.log(todoItems);
+
     if ( isTodoGroupComplete( todoItems ) ) {
-      this.onCompleteTodoGroup.emit( getTodoGroupCompleted( this.todoGroup ) );
+      this.onCheckChangeStatus.emit( getTodoGroupCompleted( this.todoGroup ) );
+      return;
     }
 
-    return;
+    if ( this.type === MenuValues.done ) {
+      this.onCheckChangeStatus.emit( 
+        getTodoGroupToDone( this.todoGroup, this.todoItemsFormArray.value ) 
+      );
+      return;
+    }
   }
 
   isTodoType(): boolean {
@@ -69,29 +74,41 @@ export class TodoCardComponent implements OnInit{
     return `${this.todoGroup.id}_${index + 1}`;
   }
 
-  getTodoFieldValueByIndex( index: number, field: keyof Todo): any {
-    const todo: Todo = this.todoGroup.todos[index];
-
-    if ( todo[field] ) {
-      return todo[field];
-    }
-
-    return '';
+  getTodoFieldValueByIndex( index: number ): string {
+    return this.todoGroup.todos[index].task;
   }
 
-  // formGroup = this._fb.group({
-  //   cities: this._fb.array([
-  //     [true, Validators.required],
-  //     [true, Validators.required],
-  //   ])
-  // });
+  changeVisibleNewInput( state: boolean ): void {
+    this.newInputVisible = state;
+    return;
+  }
 
-  // get testForm(): FormArray {
-  //   return this.formGroup.get('cities') as FormArray;
-  // }
+  onDoneTodos(): void {
+    const todoChecks = this.todoItemsFormArray.value;
+    todoChecks.map( 
+      (todoCheck: boolean, i: number) => this.todoItemsFormArray.at(i).patchValue(true) 
+    );
+    this.onCheckChangeStatus.emit( 
+      getTodoGroupCompleted( this.todoGroup ) 
+    );
+  }
 
-  // getLabel( i: number ): string {
-  //   return `${this.todoGroup.id}_${i}`
-  // }
+  onSubmitNewTodoItem( todo: string ): void {
+    const newTodoItem: Todo = { 
+      id: Number(Math.floor(Math.random() * 100000).toString()),
+      start_date: getCurrentDate(),
+      task: todo, 
+      taskDone: false, 
+    };
+
+    this.todoItemsFormArray.push( this._fb.control( false ) );
+    this.todoGroup.todos = [ ...this.todoGroup.todos, newTodoItem ];
+
+    if ( this.type === MenuValues.done ) {
+      this.onCheckChangeStatus.emit( 
+        getTodoGroupToDone( this.todoGroup, this.todoItemsFormArray.value ) 
+      );
+    } 
+  }
 
 }

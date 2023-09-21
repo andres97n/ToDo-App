@@ -1,0 +1,34 @@
+<p-dialog [header]="dialogHeader" 
+          [(visible)]="dialogVisible"
+          [modal]="true"
+          [draggable]="false"
+          [resizable]="false"
+          [style]="{width: '35vw'}"
+          (visibleChange)="changeDialogVisibility($event)">
+  <div class="dialog__container">
+    <div class="dialog__input">
+      <input type="text" 
+             pInputText 
+             [placeholder]="dialogLabel"
+             [formControl]="dialogControl"
+             [ngClass]="{ 'ng-invalid ng-dirty': isInvalidField() }"/>
+      <small 
+        *ngIf="isInvalidField()"
+        class="error-message"
+      >{{ getErrorMessage() }}</small>
+    </div>
+    <button pButton 
+            pRipple 
+            label="Guardar" 
+            type="submit"
+            icon="pi pi-save"
+            class="dialog__save-button"
+            (click)="onSubmitValue()"></button>
+    <button pButton 
+            pRipple 
+            label="Cancelar" 
+            icon="pi pi-times"
+            class="p-button-danger dialog__delete-button"
+            (click)="changeDialogVisibility( false )"></button>
+  </div>
+</p-dialog>

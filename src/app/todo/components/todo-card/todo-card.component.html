@@ -13,7 +13,7 @@
                       [inputId]="getFormControlName(i)"
                       [binary]="true"
                       (onChange)="onCheckChange()"></p-checkbox>
-          <label [for]="getFormControlName(i)">{{ getTodoFieldValueByIndex( i, 'task' ) }}</label>
+          <label [for]="getFormControlName(i)">{{ getTodoFieldValueByIndex( i ) }}</label>
         </div>
       </ng-container>
     </form>
@@ -23,6 +23,7 @@
     <p-button
       styleClass="p-button-raised"
       icon="pi pi-plus"
+      (onClick)="changeVisibleNewInput(true)"
     ></p-button>
     <p-button
       styleClass="p-button-raised p-button-secondary"
@@ -33,15 +34,13 @@
       icon="pi pi-check" 
       styleClass="p-button-success"
       *ngIf="isTodoType()"
+      (click)="onDoneTodos()"
     ></p-button>
   </div>
 </div>
 
-<!-- <form class="flex align-items-center gap-1" [formGroup]="formGroup">
-  <div formArrayName="cities">
-    <div *ngFor="let item of testForm.controls; let i = index;">
-      <p-checkbox [formControlName]="i" [inputId]="getLabel(i)" [binary]="true" ></p-checkbox>
-      <label [for]="getLabel(i)">New York</label>
-    </div>
-  </div>
-</form> -->
+<new-value-dialog [dialogVisible]="newInputVisible" 
+                  [dialogHeader]="'Nueva Tarea'"
+                  [dialogLabel]="'Tarea'"
+                  (onVisibilityChange)="changeVisibleNewInput($event)"
+                  (onValueSave)="onSubmitNewTodoItem($event)" />

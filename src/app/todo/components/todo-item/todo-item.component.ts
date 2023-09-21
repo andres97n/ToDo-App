@@ -1,7 +1,7 @@
 import { Component, Input, OnInit, computed, effect, inject, signal } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 
-import * as dayjs from 'dayjs'
+import * as dayjs from 'dayjs';
 
 import { SelectButtonOptionClickEvent } from 'primeng/selectbutton';
 

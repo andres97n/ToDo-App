@@ -16,6 +16,8 @@ import { TodoCardComponent } from './components/todo-card/todo-card.component';
 import { TodoItemsComponent } from './components/todo-items/todo-items.component';
 import { TodoItemComponent } from './components/todo-item/todo-item.component';
 
+import { NewValueDialogComponent } from '../shared/components/new-value-dialog/new-value-dialog.component';
+
 
 @NgModule({
   declarations: [
@@ -34,6 +36,8 @@ import { TodoItemComponent } from './components/todo-item/todo-item.component';
 
     TodoRoutingModule,
     PrimengModule,
+
+    NewValueDialogComponent,
   ]
 })
 export class TodoModule { }

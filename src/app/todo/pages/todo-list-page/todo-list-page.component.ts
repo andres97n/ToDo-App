@@ -2,7 +2,7 @@ import { Component, inject } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
 
-import * as dayjs from 'dayjs'
+import * as dayjs from 'dayjs';
 
 import { MenuToggle, MenuValues, TodoGroup } from '../../interfaces/';
 

@@ -57,15 +57,23 @@ export class TodoItemsComponent implements OnInit {
   }
 
   isTodoListEmpty(): boolean {
-    if (this.todoType === MenuValues.todo) {      
+    if ( this.isToDoNew() ) {      
       return this.todoGroupsForDo().length === 0;
     }
 
     return this.todoGroupsDone().length === 0;
   }
 
-  setTodoGroupsDone( todoGroup: TodoGroup ): void {
-    this._todoGroupsDone.update( groups => [ ...groups, todoGroup ] );
+  changeTodoGroupStatus( todoGroup: TodoGroup ): void {
+    if ( todoGroup.completed ) {
+      this._todoGroupsDone.update( groups => [ ...groups, todoGroup ] );
+      this._todoGroupsForDo.update( groups => groups.filter( group => group.id !== todoGroup.id ) );
+      return;
+    }
+
+    this._todoGroupsForDo.update( groups => [ ...groups, todoGroup ] );
+    this._todoGroupsDone.update( groups => groups.filter( group => group.id !== todoGroup.id ) );
+    return;
   }
    
 }

@@ -1,0 +1,22 @@
+.dialog__container {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: 2fr 1fr;
+  grid-template-areas: 'top top'
+                       'left-button right-button';
+  padding: 2rem 0;
+
+  .dialog__input{
+    grid-area: top;
+  }
+
+  .dialog__save-button {
+    grid-area: left-button;
+    width: 50%;
+  }
+
+  .dialog__delete-button {
+    width: 50%;
+    justify-self: end;
+  }
+}
