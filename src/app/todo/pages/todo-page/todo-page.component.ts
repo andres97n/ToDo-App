@@ -10,7 +10,10 @@ import { Todo, TodoGroup } from '../../interfaces';
 import { TodoService } from '../../services/todo.service';
 import { ValidatorsService } from 'src/app/shared/services/validators.service';
 
-import { emptyTodoGroup, emptyTodo, errorMessage } from '../../helpers/getTodoStaticData.helper';
+import { 
+  emptyTodoGroup, 
+  emptyTodo, 
+  errorMessageCard } from '../../helpers/getTodoStaticData.helper';
 
 
 @Component({
@@ -48,7 +51,7 @@ export class TodoPageComponent implements OnInit{
   }
 
   get todoGroupErrorMessage(): Message[] {
-    return errorMessage(
+    return errorMessageCard(
       'Error',
       'No se pudo encontrar el Grupo de Tareas'
     );

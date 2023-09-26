@@ -5,6 +5,8 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { TodoRoutingModule } from './todo-routing.module';
 import { PrimengModule } from '../primeng/primeng.module';
 
+import { MessageService } from 'primeng/api';
+
 import { TodoLayoutComponent } from './layouts/todo-layout/todo-layout.component';
 
 import { TodoPageComponent } from './pages/todo-page/todo-page.component';
@@ -38,6 +40,9 @@ import { NewValueDialogComponent } from '../shared/components/new-value-dialog/n
     PrimengModule,
 
     NewValueDialogComponent,
-  ]
+  ],
+  providers: [
+    MessageService,
+  ],
 })
 export class TodoModule { }

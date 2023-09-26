@@ -23,19 +23,15 @@ export class TodoService {
     }
   }
 
-  // get emptyTodo(): Todo {
-  //   return { ...this._emptyTodo };
-  // }
-
   public setTodoGroup(todos: TodoGroup): void {
-    this._todoGroups.update( currentGroups => [ todos, ...currentGroups ] );
+    this._todoGroups.update( currentGroups => [ ...currentGroups, todos ] );
     return;
   }
 
   public setTodoToGroup(id: number, todo: Todo): void {
     const group = this.todoGroups().find(group => group.id === id);
     if (group) {
-      group.todos = [ todo, ...group.todos ];
+      group.todos = [ ...group.todos, todo ];
       this._todoGroups().map( 
         currentGroup => currentGroup.id === id 
           ? group 
@@ -43,6 +39,32 @@ export class TodoService {
       );
     }
     return;
+  }
+
+  public updateTodoGroup(id: number, todoGroup: TodoGroup): void {
+    this._todoGroups.update( todoGroups => {
+      return todoGroups.map( currentGroup => {
+        if (currentGroup.id === id) return todoGroup; 
+        
+        return currentGroup;
+      });
+    });
+  }
+
+  public updateTodo(todoGroupId: number, todoId: number, todo: Todo): void {
+    this._todoGroups.update( todoGroups => {
+      return todoGroups.map( currentGroup => {
+        if (currentGroup.id === todoGroupId) {
+          currentGroup.todos = currentGroup.todos.map( currentTodo => {
+            if (currentTodo.id === todoId) return todo;
+            
+            return currentTodo;
+          });
+        }
+        return currentGroup;
+      })
+    
+    });
   }
 
   public getTodoGroupById(id: number): TodoGroup {

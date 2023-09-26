@@ -8,11 +8,16 @@
     <form [formGroup]="cardForm" class="todo-card__content">
       <ng-container formArrayName="todoItems">
         <div class="todo-card__content-item" 
-             *ngFor="let todo of todoItemsFormArray.controls; let i = index;">
+             *ngFor="let todo of todoItemsFormArray.controls; let i = index;"
+             [ngClass]="{ 
+              'low_priority': getTodoPriority(i) === 1,
+              'medium_priority': getTodoPriority(i) === 2, 
+              'high_priority': getTodoPriority(i) === 3, 
+             }">
           <p-checkbox [formControlName]="i" 
                       [inputId]="getFormControlName(i)"
                       [binary]="true"
-                      (onChange)="onCheckChange()"></p-checkbox>
+                      (onChange)="onCheckChange($event, i)"></p-checkbox>
           <label [for]="getFormControlName(i)">{{ getTodoFieldValueByIndex( i ) }}</label>
         </div>
       </ng-container>
@@ -38,6 +43,8 @@
     ></p-button>
   </div>
 </div>
+
+<p-toast></p-toast>
 
 <new-value-dialog [dialogVisible]="newInputVisible" 
                   [dialogHeader]="'Nueva Tarea'"

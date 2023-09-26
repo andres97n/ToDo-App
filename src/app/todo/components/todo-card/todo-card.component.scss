@@ -64,13 +64,8 @@
     border: 2px solid var(--surface-500);
     border-radius: 0.5rem;
     
-    p-checkbox, i {
+    p-checkbox {
       place-self: center;
-    }
-
-    i {
-      color: var(--primary-color);
-      font-size: 1.3rem;
     }
     
     label {
@@ -81,17 +76,17 @@
     }
   }
   
-  // .low_priority {
-  //   border-left: 5px solid var(--primary-color);
-  // }
+  .low_priority {
+    border-left: 5px solid var(--primary-color);
+  }
   
-  // .medium_priority {
-  //   border-left: 5px solid #FFA10B;
-  // }
+  .medium_priority {
+    border-left: 5px solid #FFA10B;
+  }
   
-  // .high_priority {
-  //   border-left: 5px solid #D82B09;
-  // }
+  .high_priority {
+    border-left: 5px solid #D82B09;
+  }
 }
 
 .todo-card__footer {

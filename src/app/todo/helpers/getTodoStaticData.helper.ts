@@ -1,6 +1,7 @@
 import { Message } from "primeng/api";
 
 import { Priority, DateSelection, MenuToggle, MenuValues, Todo } from "../interfaces";
+import { getCurrentDate } from "./date.helper";
 
 
 export const priorities: Priority[] = [
@@ -34,10 +35,21 @@ export const emptyTodo: Todo = {
   start_date: new Date(),
 };
 
-export const errorMessage = ( summary: string, detail: string ): Message[] => ([
+export const errorMessageCard = ( summary: string, detail: string ): Message[] => ([
   {
     severity: 'error',
     summary,
     detail
   }
 ]);
+
+export const getNewTodo = ( task: string ): Todo => ({
+  id: Number(Math.floor(Math.random() * 100000).toString()),
+  start_date: getCurrentDate(),
+  task, 
+  taskDone: false,
+  end_date: '',
+  task_end_date: '', 
+  priority: 0,
+  details: ''
+});

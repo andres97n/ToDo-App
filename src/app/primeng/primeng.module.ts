@@ -1,30 +1,32 @@
 import { NgModule } from '@angular/core';
 
-import { InputTextModule } from 'primeng/inputtext';
 import { ButtonModule } from 'primeng/button';
+import { CalendarModule } from 'primeng/calendar';
+import { CheckboxModule } from 'primeng/checkbox';
+import { DialogModule } from 'primeng/dialog';
+import { DropdownModule } from 'primeng/dropdown';
+import { InputTextareaModule } from 'primeng/inputtextarea';
+import { InputTextModule } from 'primeng/inputtext';
+import { MessagesModule } from 'primeng/messages';
 import { PasswordModule } from 'primeng/password';
 import { SelectButtonModule } from 'primeng/selectbutton';
-import { CheckboxModule } from 'primeng/checkbox';
-import { InputTextareaModule } from 'primeng/inputtextarea';
-import { DropdownModule } from 'primeng/dropdown';
-import { CalendarModule } from 'primeng/calendar';
-import { DialogModule } from 'primeng/dialog';
-import { MessagesModule } from 'primeng/messages';
+import { ToastModule } from 'primeng/toast';
 
 
 
 @NgModule({
   exports: [
-    InputTextModule,
     ButtonModule,
+    CalendarModule,
+    CheckboxModule,
+    DialogModule,
+    DropdownModule,
+    InputTextareaModule,
+    InputTextModule,
+    MessagesModule,
     PasswordModule,
     SelectButtonModule,
-    CheckboxModule,
-    InputTextareaModule,
-    DropdownModule,
-    CalendarModule,
-    DialogModule,
-    MessagesModule,
+    ToastModule,
   ],
 })
 export class PrimengModule { }
