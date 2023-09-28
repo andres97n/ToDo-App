@@ -2,27 +2,28 @@
       [formGroup]="todoForm"
       (ngSubmit)="onSubmit()"
       [ngClass]="{ 
-        'low_priority': todoPriority() === 1,
-        'medium_priority': todoPriority() === 2, 
-        'high_priority': todoPriority() === 3, 
+        'low_priority': todoPriorityCodeForm === 1,
+        'medium_priority': todoPriorityCodeForm === 2, 
+        'high_priority': todoPriorityCodeForm === 3, 
       }">
   <div class="todo__item-header">
     <span class="p-input-icon-left">
-      <i [className]="isNewTodo() ? 'pi pi-plus' : 'pi pi-file-edit'"></i>
+      <i [className]="isEmptyForm ? 'pi pi-plus' : 'pi pi-file-edit'"></i>
       <input type="text" 
-             formControlName="task" 
+             formControlName="task"
+             [placeholder]="isEmptyForm ? 'Escribe algo...' : ''" 
              pInputText/>
     </span>
     <p-button [icon]="(!isTodoDetailActive()) 
                 ?'pi pi-angle-down' 
                 :'pi pi-angle-up'"
-              (onClick)="setTodoDetailActive()"
+              (onClick)="onChangeDetailState( isTodoDetailActive() )"  
               type="button"></p-button>
   </div>
   <div class="todo__item-body" *ngIf="isTodoDetailActive()">
     <div class="todo__item-body_resume">
       <textarea pInputTextarea 
-                formControlName="detail" 
+                formControlName="details" 
                 [autoResize]="false"></textarea>
     </div>
     <div class="todo__item-body_date">
@@ -32,7 +33,7 @@
                         optionLabel="label" 
                         optionValue="value"
                         (onOptionClick)="onDateSelectionChange($event)"></p-selectButton>
-        <p-calendar formControlName="date" 
+        <p-calendar formControlName="end_date" 
                     dateFormat="dd/mm/yy"></p-calendar>
       </div>
     </div>
@@ -40,21 +41,16 @@
       <label>Prioridad</label>
       <p-dropdown [options]="prioritiesSelect" 
                   formControlName="priority" 
-                  optionLabel="name"
-                  (onClick)="onPriorityChange()"
-      ></p-dropdown>
+                  optionLabel="name"></p-dropdown>
     </div>
     <div class="todo__item-body_action">
       <p-button icon="pi pi-save"
                 type="submit"
-                (onClick)="onSubmit()"
-                [ngClass]="{ 'space-beetween' : !isEmptyForm() }"
-      ></p-button>
+                [ngClass]="{ 'space-beetween' : !isEmptyForm }"></p-button>
       <p-button icon="pi pi-trash" 
                 styleClass="p-button-danger"
                 (onClick)="deleteToDo()"
-                *ngIf="!isEmptyForm()"
-      ></p-button>
+                *ngIf="!isEmptyForm"></p-button>
     </div>
   </div>
 </form>

@@ -13,7 +13,7 @@ export class TodoService {
 
   private _todoListRaw: any = todos;
   private _todoGroups = signal<TodoGroup[]>([]);  
-  private isLoading = signal<boolean>(false);
+  // private isLoading = signal<boolean>(false);
 
   public todoGroups = computed( () => this._todoGroups() );
 
@@ -28,12 +28,12 @@ export class TodoService {
     return;
   }
 
-  public setTodoToGroup(id: number, todo: Todo): void {
-    const group = this.todoGroups().find(group => group.id === id);
+  public setTodoToGroup(todoGroupId: number, todo: Todo): void {
+    const group = this.todoGroups().find(group => group.id === todoGroupId);
     if (group) {
       group.todos = [ ...group.todos, todo ];
       this._todoGroups().map( 
-        currentGroup => currentGroup.id === id 
+        currentGroup => currentGroup.id === todoGroupId
           ? group 
           : currentGroup 
       );
@@ -51,7 +51,7 @@ export class TodoService {
     });
   }
 
-  public updateTodo(todoGroupId: number, todoId: number, todo: Todo): void {
+  public updateTodoToGroup(todoGroupId: number, todoId: number, todo: Todo): void {
     this._todoGroups.update( todoGroups => {
       return todoGroups.map( currentGroup => {
         if (currentGroup.id === todoGroupId) {
@@ -70,5 +70,22 @@ export class TodoService {
   public getTodoGroupById(id: number): TodoGroup {
     return this.todoGroups().find(todo => todo.id === id) || emptyTodoGroup;
   }
+
+  public deleteTodoOfAGroup(todoGroupId: number, todoId: number): void {
+    this._todoGroups.update( currentGroups => (
+      currentGroups.map( currentGroup => {
+        if (currentGroup.id === todoGroupId) {
+          currentGroup.todos = currentGroup.todos.filter( currentTodo => {
+            return currentTodo.id !== todoId;
+          });
+        }
+        return currentGroup;
+      })
+    ));
+  }
+
+
+  
+    
 
 }

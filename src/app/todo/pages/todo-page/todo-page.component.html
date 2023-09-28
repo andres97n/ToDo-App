@@ -1,7 +1,7 @@
 <div class="todo-group__container">
   <div>
     <h1>Grupo de Tareas:</h1>
-    <h2>{{ this.todoGroup().title }}</h2>
+    <h2>{{ getTodoGroup().title }}</h2>
   </div>
   <div class="todo-group__body">
     <div></div>
@@ -27,14 +27,17 @@
                     (onClick)="editTodoGroupTitle()"></p-button>
         </form>
         <div class="todo-items__body">
-          <todo-item [todo]="todo" 
-                     *ngFor="let todo of todoGroup().todos" 
+          <todo-item *ngFor="let todo of getTodoGroup().todos" 
+                     [todo]="todo"
+                     [todoGroupId]="todoGroupId()"           
                      class="todo-item__edit"/>
         </div>
         <hr>
         <div class="todo-item__new-container">
           <h3>Nueva Tarea</h3>
-          <todo-item [todo]="newTodo" id="todo-item__new"/>
+          <todo-item [todo]="newTodo" 
+                     id="todo-item__new"
+                     [todoGroupId]="todoGroupId()"/>
         </div>
       </ng-container>
       <ng-container *ngIf="!isTodoGroupValid">

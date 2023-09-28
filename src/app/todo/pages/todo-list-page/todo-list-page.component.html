@@ -14,11 +14,10 @@
       <div class="todo-list__items">
         <todo-items [todoGroups]="todoGroupsList"
                     [todoType]="toggleValue" />
-        <div class="todo_list__new-button" 
-             (click)="changeDialogVisibility( true )">
+        <button class="todo-list__new-button" 
+                (click)="changeDialogVisibility( true )">
           <i class="pi pi-plus"></i>
-        </div>
-        
+        </button>
       </div>
     </div>
 

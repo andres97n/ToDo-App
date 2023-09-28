@@ -10,10 +10,7 @@ import { Todo, TodoGroup } from '../../interfaces';
 import { TodoService } from '../../services/todo.service';
 import { ValidatorsService } from 'src/app/shared/services/validators.service';
 
-import { 
-  emptyTodoGroup, 
-  emptyTodo, 
-  errorMessageCard } from '../../helpers/getTodoStaticData.helper';
+import { emptyTodo } from '../../helpers/getTodoStaticData.helper';
 
 
 @Component({
@@ -28,8 +25,8 @@ export class TodoPageComponent implements OnInit{
   private _todoService = inject( TodoService );
   private _validatorsService =  inject( ValidatorsService );
 
-  private _todoGroup = signal<TodoGroup>( { ...emptyTodoGroup } );
-  public todoGroup = computed<TodoGroup>( () => this._todoGroup() );
+  private _todoGroupId = signal<number>(0);
+  public todoGroupId = computed<number>( () => this._todoGroupId() );
 
   public todoGroupForm = this._fb.group({
     title: [
@@ -43,7 +40,7 @@ export class TodoPageComponent implements OnInit{
 
   ngOnInit(): void {
     this.setCurrentTodoGroup();
-    this.todoGroupForm.get('title')!.setValue( this.todoGroup().title);
+    this.todoGroupForm.get('title')!.setValue( this.getTodoGroup().title);
   }
 
   get newTodo(): Todo {
@@ -51,14 +48,17 @@ export class TodoPageComponent implements OnInit{
   }
 
   get todoGroupErrorMessage(): Message[] {
-    return errorMessageCard(
-      'Error',
-      'No se pudo encontrar el Grupo de Tareas'
-    );
+    return [
+      {
+        severity: 'error',
+        summary: 'Error',
+        detail: 'No se pudo encontrar el Grupo de Tareas'
+      }
+    ]
   }
 
   get isTodoGroupValid(): boolean {
-    return this.todoGroup().id !== 0;
+    return this.todoGroupId() !== 0;
   }
 
   get isInvalidTitle() {
@@ -78,9 +78,13 @@ export class TodoPageComponent implements OnInit{
         const todoId: number = Number(id) || 0;
         if ( todoId === 0 ) return this._router.navigate([ '/dashboard/todo-list' ]);
   
-        this._todoGroup.set( this._todoService.getTodoGroupById( todoId ) )
+        this._todoGroupId.set( todoId );
         return;
       });
+  }
+
+  getTodoGroup(): TodoGroup {
+    return this._todoService.getTodoGroupById( this.todoGroupId() );
   }
 
   editTodoGroupTitle(): void {
@@ -90,14 +94,13 @@ export class TodoPageComponent implements OnInit{
     }
 
     const { title } = this.todoGroupForm.value;
+    const currentTodoGroup = this.getTodoGroup();
     
-    if ( this.todoGroup().title === title ) return;
+    if ( currentTodoGroup.title === title!.trim() ) return;
 
-    this._todoGroup.update( currentGroup => {
-      currentGroup.title = title!;
-      return currentGroup;
-    });
-    this._todoService.setTodoGroup( this.todoGroup() );
+    currentTodoGroup.title = title!;
+    this._todoService.updateTodoGroup( this.todoGroupId(), currentTodoGroup );
+    return;
   }
     
 }

@@ -33,18 +33,19 @@
     <p-button
       styleClass="p-button-raised p-button-secondary"
       icon="pi pi-file-edit"
+      [routerLink]="'/dashboard/todo/' + todoGroup.id"
     ></p-button>
     <p-button 
       styleClass="p-button-raised"
       icon="pi pi-check" 
       styleClass="p-button-success"
       *ngIf="isTodoType()"
-      (click)="onDoneTodos()"
+      (onClick)="onDoneTodos()"
     ></p-button>
   </div>
 </div>
 
-<p-toast></p-toast>
+<p-toast position="bottom-center" key="bc"></p-toast>
 
 <new-value-dialog [dialogVisible]="newInputVisible" 
                   [dialogHeader]="'Nueva Tarea'"

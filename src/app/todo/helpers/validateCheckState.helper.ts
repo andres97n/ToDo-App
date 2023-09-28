@@ -1,7 +1,7 @@
 
 import { TodoGroup, Todo } from "../interfaces";
 
-import { getCurrentDate } from './date.helper';
+import { getCurrentDate, isDateAfter, isDateBefore } from './date.helper';
 
 
 
@@ -41,4 +41,12 @@ export const getTodoGroupToDone = (
   todoGroup.end_date = ''
 
   return todoGroup;
+}
+
+export const getTodoGroupsSorted = ( todoGroup: TodoGroup[] ): TodoGroup[] => {
+  return todoGroup.sort( (a, b) => {
+    if ( isDateBefore( a.end_date!.toString(), b.end_date!.toString() )) return -1;
+    if ( isDateAfter( a.end_date!.toString(), b.end_date!.toString() ) ) return 1;
+    return 0;
+  });
 }

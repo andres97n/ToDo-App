@@ -11,7 +11,6 @@ import {
   getTodoGroupCompleted, 
   isTodoGroupComplete, 
   getTodoGroupToDone, 
-  getCurrentDate, 
   getNewTodo} from '../../helpers';
 
 
@@ -20,7 +19,7 @@ import {
   templateUrl: './todo-card.component.html',
   styleUrls: ['./todo-card.component.scss']
 })
-export class TodoCardComponent implements OnInit{
+export class TodoCardComponent implements OnInit {
 
   private _fb = inject( FormBuilder );
   private _todoService = inject( TodoService );
@@ -71,7 +70,7 @@ export class TodoCardComponent implements OnInit{
   }
 
   showMessage( severity: string, summary: string, detail: string ): void {
-    this._messageService.add({ severity, summary, detail });
+    this._messageService.add({ key: 'bc', severity, summary, detail });
   }
 
   changeVisibleNewInput( state: boolean ): void {
@@ -79,23 +78,30 @@ export class TodoCardComponent implements OnInit{
     return;
   }
 
+  //TODO: Find the problem about messages, why not visualize them
+
   onCheckChange( event: CheckboxChangeEvent, index: number ): void {
     const { checked } = event;
+    const { id, title } = this.todoGroup;
     const todoItems = this.todoItemsFormArray.value;
-    const todoGroupId: number = this.todoGroup.id;
     
     if ( isTodoGroupComplete( todoItems ) ) {
-      this._todoService.updateTodoGroup( 
-        todoGroupId, 
-        getTodoGroupCompleted( this.todoGroup ) 
-      );
+      this._todoService.updateTodoGroup( id, getTodoGroupCompleted( this.todoGroup ));
+      console.log('entro');
+      
+      this.showMessage( 'success', title, 'Grupo de Tareas Terminadas' );
       return;
     }
 
     this._todoService.updateTodoGroup( 
-      todoGroupId, 
+      id, 
       getTodoGroupToDone( this.todoGroup, index, checked ) 
-    );    
+    );
+    if ( this.todoType === MenuValues.done ) {
+      console.log('por hacer');
+      
+      this.showMessage( 'warn', title, 'Grupo Reasignado a Por Hacer' );
+    } 
     return;
   }
 
@@ -112,7 +118,9 @@ export class TodoCardComponent implements OnInit{
   }
 
   onSubmitNewTodoItem( task: string ): void {
-    const newTodoItem: Todo = getNewTodo( task );
+    const newTodoItem: Todo = getNewTodo({
+      task, end_date: '', priority: 0, details: ''
+    });
 
     this.todoItemsFormArray.push( this._fb.control( false ) );
     this._todoService.setTodoToGroup( this.todoGroup.id, newTodoItem );

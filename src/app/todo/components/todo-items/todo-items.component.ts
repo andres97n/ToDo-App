@@ -2,6 +2,8 @@ import { Component, Input } from '@angular/core';
 
 import { TodoGroup, MenuValues } from '../../interfaces';
 
+import { getTodoGroupsSorted } from '../../helpers';
+
 
 
 @Component({
@@ -23,7 +25,9 @@ export class TodoItemsComponent {
     this.todoGroups.forEach((group) => {
       if ( group.completed ) groupsDone.push( group );   
     });
-    return groupsDone;
+
+    return getTodoGroupsSorted( groupsDone );
+    // return groupsDone;
   }
 
   get todoGroupsForDo(): TodoGroup[] {
@@ -31,7 +35,10 @@ export class TodoItemsComponent {
     this.todoGroups.forEach((group) => {
       if ( !group.completed ) groupsForDo.push( group );    
     });
-    return groupsForDo;
+
+    return getTodoGroupsSorted( groupsForDo );
+
+    // return groupsForDo;
   }
 
   isToDoTypeDone(): boolean {

@@ -1,8 +1,20 @@
-import { Message } from "primeng/api";
 
-import { Priority, DateSelection, MenuToggle, MenuValues, Todo } from "../interfaces";
+import { Priority, 
+         DateSelection, 
+         MenuToggle, 
+         MenuValues, 
+         Todo, 
+         PriorityValues } from "../interfaces";
+
 import { getCurrentDate } from "./date.helper";
 
+
+export interface TodoFunction {
+  task: string; 
+  end_date: Date | string; 
+  priority: PriorityValues;
+  details: string; 
+}
 
 export const priorities: Priority[] = [
   { name: 'Ninguna', code: 0 },
@@ -35,21 +47,34 @@ export const emptyTodo: Todo = {
   start_date: new Date(),
 };
 
-export const errorMessageCard = ( summary: string, detail: string ): Message[] => ([
-  {
-    severity: 'error',
-    summary,
-    detail
-  }
-]);
+export const getNewTodo = ( todo: TodoFunction ): Todo => {
 
-export const getNewTodo = ( task: string ): Todo => ({
-  id: Number(Math.floor(Math.random() * 100000).toString()),
-  start_date: getCurrentDate(),
-  task, 
-  taskDone: false,
-  end_date: '',
-  task_end_date: '', 
-  priority: 0,
-  details: ''
-});
+  const { task, end_date, priority, details } = todo;
+
+  const newTodo: Todo = {
+    id: Number(Math.floor(Math.random() * 100000).toString()),
+    start_date: getCurrentDate(),
+    task, 
+    taskDone: false,
+    end_date: end_date || '',
+    task_end_date: '', 
+    priority,
+    details
+  } 
+
+  return newTodo;
+};
+
+export const getPriority = ( code: number ): Priority => {
+  switch (code) {
+    case 0: return { name: 'Ninguna', code: 0 }
+    
+    case 1: return { name: 'Baja', code: 1 }
+
+    case 2: return { name: 'Media', code: 2 }
+  
+    case 3: return { name: 'Alta', code: 3 }
+
+    default: return { name: 'Ninguna', code: 0 }
+  }
+}
