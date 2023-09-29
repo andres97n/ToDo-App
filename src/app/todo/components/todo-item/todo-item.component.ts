@@ -1,21 +1,29 @@
-import { Component, Input, OnInit, computed, inject, signal } from '@angular/core';
+import { Component, 
+         EventEmitter, 
+         Input, 
+         OnInit, 
+         Output, 
+         computed, 
+         inject, 
+         signal } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 
-import { SelectButtonOptionClickEvent } from 'primeng/selectbutton';
+import { Message } from 'primeng/api';
 
 import { TodoService } from '../../services/todo.service';
+import { ValidatorsService } from 'src/app/shared/services/validators.service';
 
-import { Todo, Priority, DateSelection } from '../../interfaces';
+import { Todo, Priority } from '../../interfaces';
 
-import { 
-  dateStates, 
-  priorities, 
-  getCurrentDate, 
-  getPriority, 
-  getDateFormatted,
-  getTomorrow,
-  getNewTodo } from '../../helpers/';
+import { getPriority, getNewTodo, getDateFormatted} from '../../helpers/';
 
+
+interface TodoForm {
+  task: string;
+  details: string;
+  end_date: string;
+  priority: Priority;
+}
 
 @Component({
   selector: 'todo-item',
@@ -28,16 +36,20 @@ export class TodoItemComponent implements OnInit{
   public todo!: Todo;
   @Input()
   public todoGroupId!: number;
+
+  @Output()
+  public onConfirmMessage: EventEmitter<Message> = new EventEmitter();
   
   private _fb = inject( FormBuilder );
   private _todoService = inject( TodoService );
+  private _validatorsService = inject( ValidatorsService );
   
   private _todoDetailActive = signal<boolean>(false);
   public isTodoDetailActive = computed( () => this._todoDetailActive() );
 
   public todoForm = this._fb.group({
-    task: ['', [ Validators.required ]],
-    details: [''],
+    task: ['', [ Validators.required, Validators.maxLength(120) ]],
+    details: ['', [ Validators.maxLength(300)  ]],
     end_date: [''],
     priority: [ getPriority(0) ],
   });
@@ -49,14 +61,6 @@ export class TodoItemComponent implements OnInit{
     }
   }
 
-  get prioritiesSelect(): Priority[] {
-    return [ ...priorities ];
-  }
-
-  get stateOptions(): DateSelection[] {
-    return [ ...dateStates ];
-  }
-
   get todoPriorityCodeForm(): number {
     return this.todoForm.get('priority')!.value!.code;
   }
@@ -65,35 +69,44 @@ export class TodoItemComponent implements OnInit{
     return this.todo.id === 0;
   }
 
+  //TODO: Show end_date in New Todos
   setTodoToForm(): void {
     const { task, details, end_date, priority } = this.todo;
-    const endDate = (end_date) ? getDateFormatted( end_date.toString() ) : '';
+    console.log(end_date);
     
-    this.todoForm.reset({
-      task,
-      details,
-      end_date: endDate,
-      priority: getPriority( priority! ),
+    // const endDate = (end_date) ? getDateFormatted( end_date.toString() ).toString() : '';
+    let endDate = '';
+    if ( end_date ) {
+      endDate = getDateFormatted( end_date.toString() );
+    }
+
+    this.resetTodoForm({ 
+      task, details: details!, end_date: endDate, priority: getPriority( priority! ) 
     });
-    return;
+  }
+  
+  public resetTodoForm( todoForm: TodoForm ): void {
+    const { task, details, end_date, priority } = todoForm;
+
+    this.todoForm.reset({ task, details, end_date, priority });
+    return; 
+  }
+  
+  public isInvalidField( field: string ) {
+    return this._validatorsService.isInvalidField( this.todoForm, field );
+  }
+
+  public getFieldErrorMessage( field: string ) {
+    return this._validatorsService.getErrorMessage( this.todoForm, field );
+  }
+
+  showMessage( severity: string, summary: string, detail: string ): void {
+    this.onConfirmMessage.emit({ severity, summary, detail });
   }
 
   onChangeDetailState( state: boolean): void {
     if ( state ) this.setTodoToForm();
     this._todoDetailActive.set( !state );
-  }
-
-  onDateSelectionChange( event: SelectButtonOptionClickEvent ): void {
-    const { value } = event.option;
-    const dateField = this.todoForm.get('end_date');
-    const today = getCurrentDate();
-    
-    if ( !dateField ) return;
-    
-    if ( value === 'today' ) dateField.setValue( today ); 
-      
-    if ( value === 'tomorrow' ) dateField.setValue( getTomorrow() );
-    return;
   }
 
   onSubmit(): void {
@@ -103,35 +116,36 @@ export class TodoItemComponent implements OnInit{
     } 
 
     const { task, details, end_date, priority } = this.todoForm.value; 
-    console.log(end_date);
-
     const newTodo: Todo = getNewTodo({ 
-      task: task!, 
+      task: task!.trim(), 
       end_date: end_date!, 
       priority: priority!.code, 
-      details: details || '' 
+      details: details?.trim() || '' 
     });
     
     if ( this.isEmptyForm ) {
       this._todoService.setTodoToGroup( this.todoGroupId, newTodo );
-      this.todoForm.reset({
-        task: '',
-        details: '',
-        end_date: '',
-        priority: getPriority(0),
+      this.resetTodoForm({ 
+        task: '', details: '', end_date: '', priority: getPriority( 0 ) 
       });
     }
 
     if ( !this.isEmptyForm ) {
       this._todoService.updateTodoToGroup( this.todoGroupId, this.todo.id, newTodo );
     }
-
-    this.onChangeDetailState( true );
+    
+    this.showMessage( 
+      'success',
+      '', 
+      (this.isEmptyForm) ? 'Tarea agregada correctamente' : 'Tarea actualizada correctamente' 
+    );
+    this._todoDetailActive.set( false );
     return;
   }
 
   deleteToDo(): void {
     this._todoService.deleteTodoOfAGroup( this.todoGroupId, this.todo.id );
+    this.showMessage( 'success', '', 'Tarea eliminada correctamente' );
   }
 
 }

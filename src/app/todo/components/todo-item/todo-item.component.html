@@ -9,23 +9,39 @@
   <div class="todo__item-header">
     <span class="p-input-icon-left">
       <i [className]="isEmptyForm ? 'pi pi-plus' : 'pi pi-file-edit'"></i>
-      <input type="text" 
+      <input type="text"
+             pInputText
+             name="task" 
              formControlName="task"
+             autocomplete="off"
              [placeholder]="isEmptyForm ? 'Escribe algo...' : ''" 
-             pInputText/>
+             [ngClass]="{ 'ng-invalid ng-dirty': isInvalidField('task') }"/>
     </span>
     <p-button [icon]="(!isTodoDetailActive()) 
-                ?'pi pi-angle-down' 
-                :'pi pi-angle-up'"
-              (onClick)="onChangeDetailState( isTodoDetailActive() )"  
-              type="button"></p-button>
+    ?'pi pi-angle-down' 
+    :'pi pi-angle-up'"
+    (onClick)="onChangeDetailState( isTodoDetailActive() )"  
+    type="button"></p-button>
+    <label htmlFor="task"
+           *ngIf="isInvalidField('task')">{{ getFieldErrorMessage('task') }}</label>
   </div>
-  <div class="todo__item-body" *ngIf="isTodoDetailActive()">
+  
+  <todo-item-detail *ngIf="isTodoDetailActive()"
+                    [todoForm]="todoForm"
+                    [isEmptyForm]="isEmptyForm"
+                    (onSubmitDetail)="onSubmit()"
+                    (onDeleteTodo)="deleteToDo()"></todo-item-detail>
+  <!-- <div class="todo__item-body" *ngIf="isTodoDetailActive()">
     <div class="todo__item-body_resume">
       <textarea pInputTextarea 
-                formControlName="details" 
-                [autoResize]="false"></textarea>
+                formControlName="details"
+                placeholder="Detalle de la Tarea..." 
+                [autoResize]="false"
+                [ngClass]="{ 'ng-invalid ng-dirty': isInvalidField('details') }"></textarea>
     </div>
+    <label htmlFor="task"
+            id="area-error"
+            *ngIf="isInvalidField('details')">{{ getFieldErrorMessage('details') }}</label>
     <div class="todo__item-body_date">
       <label>Fecha Límite</label>
       <div>
@@ -52,5 +68,5 @@
                 (onClick)="deleteToDo()"
                 *ngIf="!isEmptyForm"></p-button>
     </div>
-  </div>
+  </div> -->
 </form>

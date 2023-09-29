@@ -30,14 +30,16 @@
           <todo-item *ngFor="let todo of getTodoGroup().todos" 
                      [todo]="todo"
                      [todoGroupId]="todoGroupId()"           
-                     class="todo-item__edit"/>
+                     class="todo-item__edit"
+                     (onConfirmMessage)="showMessage($event)"/>
         </div>
         <hr>
         <div class="todo-item__new-container">
           <h3>Nueva Tarea</h3>
           <todo-item [todo]="newTodo" 
                      id="todo-item__new"
-                     [todoGroupId]="todoGroupId()"/>
+                     [todoGroupId]="todoGroupId()"
+                     (onConfirmMessage)="showMessage($event)"/>
         </div>
       </ng-container>
       <ng-container *ngIf="!isTodoGroupValid">
@@ -50,3 +52,5 @@
     <div></div>
   </div>
 </div>
+
+<p-toast position="bottom-center"></p-toast>

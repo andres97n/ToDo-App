@@ -3,7 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { FormBuilder, Validators } from '@angular/forms';
 // import { switchMap } from 'rxjs';
 
-import { Message } from 'primeng/api';
+import { Message, MessageService } from 'primeng/api';
 
 import { Todo, TodoGroup } from '../../interfaces';
 
@@ -11,6 +11,7 @@ import { TodoService } from '../../services/todo.service';
 import { ValidatorsService } from 'src/app/shared/services/validators.service';
 
 import { emptyTodo } from '../../helpers/getTodoStaticData.helper';
+import { getTodosSorted } from '../../helpers';
 
 
 @Component({
@@ -24,18 +25,13 @@ export class TodoPageComponent implements OnInit{
   private _fb = inject( FormBuilder );
   private _todoService = inject( TodoService );
   private _validatorsService =  inject( ValidatorsService );
+  private _messageService = inject( MessageService );
 
   private _todoGroupId = signal<number>(0);
   public todoGroupId = computed<number>( () => this._todoGroupId() );
 
   public todoGroupForm = this._fb.group({
-    title: [
-      '',
-      [
-        Validators.required,
-        Validators.minLength( 3 ),
-      ],  
-    ],
+    title: ['', [ Validators.required, Validators.minLength( 3 ),]],
   });
 
   ngOnInit(): void {
@@ -48,13 +44,11 @@ export class TodoPageComponent implements OnInit{
   }
 
   get todoGroupErrorMessage(): Message[] {
-    return [
-      {
-        severity: 'error',
-        summary: 'Error',
-        detail: 'No se pudo encontrar el Grupo de Tareas'
-      }
-    ]
+    return [{
+      severity: 'error',
+      summary: 'Error',
+      detail: 'No se pudo encontrar el Grupo de Tareas'
+    }]
   }
 
   get isTodoGroupValid(): boolean {
@@ -84,7 +78,14 @@ export class TodoPageComponent implements OnInit{
   }
 
   getTodoGroup(): TodoGroup {
-    return this._todoService.getTodoGroupById( this.todoGroupId() );
+    const currentTodoGroup = this._todoService.getTodoGroupById( this.todoGroupId() );
+    currentTodoGroup.todos = getTodosSorted( currentTodoGroup.todos);
+    return currentTodoGroup;
+  }
+
+  showMessage( message: Message ): void {
+    const { severity, summary, detail } = message;
+    this._messageService.add({ severity, summary, detail });
   }
 
   editTodoGroupTitle(): void {

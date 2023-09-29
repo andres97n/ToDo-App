@@ -26,6 +26,9 @@ export class ValidatorsService {
         case 'minlength':
           return `Mínimo ${ errors['minlength'].requiredLength } caracteres.`;
 
+        case 'maxlength':
+          return `Máximo ${ errors['maxlength'].requiredLength } caracteres.`;
+
         case 'pattern':
           return 'El formato del correo electrónico no es válido';
 

@@ -1,16 +1,22 @@
 <div class="header-container">
-  <div></div>
+  <div class="header__logout-container">
+    <p-button icon="pi pi-caret-left" 
+              styleClass="p-button-warning"
+              routerLink="/dashboard/todo-list"
+              *ngIf="!isTodoListPage"></p-button>
+  </div>
   <div class="header__search-container">
-    <span class="p-input-icon-left">
+    <span class="p-input-icon-left" *ngIf="isTodoListPage">
       <i class="pi pi-search"></i>
-      <input type="text" pInputText placeholder="Buscar Tareas"/>
+      <input pInputText 
+             type="text"
+             placeholder="Buscar Tareas" 
+             [formControl]="searchControl"/>
     </span>
   </div>
   <div class="header__logout-container">
-    <p-button 
-      label="Cerrar Sesión" 
-      styleClass="p-button-rounded p-button-secondary"
-      routerLink="/auth/login"
-    ></p-button>
+    <p-button label="Cerrar Sesión" 
+              styleClass="p-button-rounded p-button-secondary"
+              routerLink="/auth/login"></p-button>
   </div>
 </div>

@@ -63,7 +63,6 @@ export class TodoService {
         }
         return currentGroup;
       })
-    
     });
   }
 
@@ -82,10 +81,19 @@ export class TodoService {
         return currentGroup;
       })
     ));
+  }  
+   
+  public searchTodoGroups(searchText: string): void {
+    this._todoGroups.update( todoGroups => {
+      if ( searchText.length === 0 ) {
+        return this._todoListRaw.default;
+      }
+      if ( searchText.length !== 0 ) {
+        return todoGroups.filter( 
+          todoGroup => todoGroup.title.toLowerCase().includes(searchText.toLowerCase()) 
+        );
+      }
+    });
   }
-
-
-  
-    
 
 }

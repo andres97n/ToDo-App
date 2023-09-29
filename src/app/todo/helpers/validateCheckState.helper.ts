@@ -50,3 +50,11 @@ export const getTodoGroupsSorted = ( todoGroup: TodoGroup[] ): TodoGroup[] => {
     return 0;
   });
 }
+
+export const getTodosSorted = ( todos: Todo[] ): Todo[] => {
+  return todos.sort( (a, b) => {
+    if ( Number(a.priority) > Number(b.priority) ) return -1;
+    if ( Number(a.priority) < Number(b.priority) ) return 1;
+    return 0;
+  });
+}

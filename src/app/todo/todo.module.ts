@@ -17,20 +17,22 @@ import { HeaderComponent } from './components/header/header.component';
 import { TodoCardComponent } from './components/todo-card/todo-card.component';
 import { TodoItemsComponent } from './components/todo-items/todo-items.component';
 import { TodoItemComponent } from './components/todo-item/todo-item.component';
+import { TodoItemDetailComponent } from './components/todo-item-detail/todo-item-detail.component';
 
 import { NewValueDialogComponent } from '../shared/components/new-value-dialog/new-value-dialog.component';
 
 
 @NgModule({
   declarations: [
-    TodoLayoutComponent,
-    TodoPageComponent,
-    TodoListPageComponent,
     FooterComponent,
     HeaderComponent,
     TodoCardComponent,
+    TodoItemComponent,
+    TodoItemDetailComponent,
     TodoItemsComponent,
-    TodoItemComponent
+    TodoLayoutComponent,
+    TodoListPageComponent,
+    TodoPageComponent,
   ],
   imports: [
     CommonModule,
