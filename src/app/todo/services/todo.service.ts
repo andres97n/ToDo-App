@@ -7,7 +7,7 @@ import { emptyTodoGroup } from '../helpers';
 
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'any'
 })
 export class TodoService {
 

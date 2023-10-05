@@ -2,11 +2,9 @@ import { Component, inject } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
 
-import * as dayjs from 'dayjs';
-
 import { MenuToggle, MenuValues, TodoGroup } from '../../interfaces/';
 
-import { todoStateOptions } from '../../helpers';
+import { getCurrentDate, todoStateOptions } from '../../helpers';
 
 import { TodoService } from '../../services/todo.service';
 
@@ -45,7 +43,7 @@ export class TodoListPageComponent {
     const newTodoGroup: TodoGroup = {
       id: todoGroupId,
       title: title,
-      start_date: dayjs().format('DD/MM/YYYY'),
+      start_date: getCurrentDate(),
       completed: false,
       todos: [],
     }

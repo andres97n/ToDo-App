@@ -7,6 +7,8 @@ import { PrimengModule } from '../primeng/primeng.module';
 
 import { MessageService } from 'primeng/api';
 
+import { TodoService } from './services/todo.service';
+
 import { TodoLayoutComponent } from './layouts/todo-layout/todo-layout.component';
 
 import { TodoPageComponent } from './pages/todo-page/todo-page.component';
@@ -45,6 +47,7 @@ import { NewValueDialogComponent } from '../shared/components/new-value-dialog/n
   ],
   providers: [
     MessageService,
+    TodoService,
   ],
 })
 export class TodoModule { }

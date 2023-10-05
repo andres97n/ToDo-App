@@ -24,6 +24,8 @@
       "dom"
     ],
     "resolveJsonModule": true,
+    "types": ["jest"],
+    "esModuleInterop": true
   },
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,
