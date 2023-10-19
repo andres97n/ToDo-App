@@ -2,6 +2,7 @@
 // import { TodoGroup, Todo } from "../interfaces";
 
 import { TodoGroup } from 'src/app/todo/interfaces';
+
 import { getTodoGroupCompleted, isTodoGroupComplete } from '../../../../src/app/todo/helpers';
 
 
@@ -12,27 +13,27 @@ describe( 'Validate Check State', () => {
     title: "Group 1",
     completed: false,
     start_date: new Date(),
-    end_date: '',
+    end_date: new Date(),
     todos: [
       {
         id: 1,
         task: 'Task 1',
         start_date: new Date(),
-        end_date: '',
+        end_date: new Date(),
         taskDone: false,
         details: '',
         priority: 0,
-        task_end_date: ''
+        task_end_date: new Date()
       },
       {
         id: 2,
         task: 'Task 2',
         start_date: new Date(),
-        end_date: '',
+        end_date: new Date(),
         taskDone: false,
         details: '',
         priority: 0,
-        task_end_date: ''
+        task_end_date: new Date()
       },
     ]
   }

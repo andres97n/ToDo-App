@@ -8,7 +8,7 @@ import { ValidatorsService } from 'src/app/shared/services/validators.service';
 
 import { DateSelection, Priority } from '../../interfaces';
 
-import { dateStates, getCurrentDate, getTomorrow, priorities } from '../../helpers';
+import { dateStates, getCurrentDateToString, getTomorrow, priorities } from '../../helpers';
 
 
 @Component({
@@ -50,7 +50,7 @@ export class TodoItemDetailComponent {
   onDateSelectionChange( event: SelectButtonOptionClickEvent ): void {
     const { value } = event.option;
     const dateField = this.todoForm.get('end_date');
-    const today = getCurrentDate();
+    const today = getCurrentDateToString();
     
     if ( !dateField ) return;
     

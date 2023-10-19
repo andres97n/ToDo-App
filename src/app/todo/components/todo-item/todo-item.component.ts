@@ -15,7 +15,10 @@ import { ValidatorsService } from 'src/app/shared/services/validators.service';
 
 import { Todo, Priority } from '../../interfaces';
 
-import { getPriority, getNewTodo, getDateFormatted} from '../../helpers/';
+import { getPriority, 
+         getNewTodo, 
+         getDateFormattedToString, 
+         getDateFormatted} from '../../helpers/';
 
 
 interface TodoForm {
@@ -77,7 +80,7 @@ export class TodoItemComponent implements OnInit{
     // const endDate = (end_date) ? getDateFormatted( end_date.toString() ).toString() : '';
     let endDate = '';
     if ( end_date ) {
-      endDate = getDateFormatted( end_date.toString() );
+      endDate = getDateFormattedToString( end_date.toString() );
     }
 
     this.resetTodoForm({ 
@@ -118,7 +121,7 @@ export class TodoItemComponent implements OnInit{
     const { task, details, end_date, priority } = this.todoForm.value; 
     const newTodo: Todo = getNewTodo({ 
       task: task!.trim(), 
-      end_date: end_date!, 
+      end_date: getDateFormatted( end_date! ), 
       priority: priority!.code, 
       details: details?.trim() || '' 
     });

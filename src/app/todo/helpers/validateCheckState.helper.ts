@@ -38,15 +38,16 @@ export const getTodoGroupToDone = (
                     : todo.task_end_date
   }));
   todoGroup.completed = false;
-  todoGroup.end_date = ''
 
   return todoGroup;
 }
 
 export const getTodoGroupsSorted = ( todoGroup: TodoGroup[] ): TodoGroup[] => {
   return todoGroup.sort( (a, b) => {
-    if ( isDateBefore( a.end_date!.toString(), b.end_date!.toString() )) return -1;
-    if ( isDateAfter( a.end_date!.toString(), b.end_date!.toString() ) ) return 1;
+    if (a.end_date && b.end_date) {
+      if ( isDateBefore( a.end_date!.toString(), b.end_date!.toString() )) return -1;
+      if ( isDateAfter( a.end_date!.toString(), b.end_date!.toString() ) ) return 1;
+    }
     return 0;
   });
 }

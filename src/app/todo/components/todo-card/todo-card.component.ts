@@ -87,7 +87,6 @@ export class TodoCardComponent implements OnInit {
     
     if ( isTodoGroupComplete( todoItems ) ) {
       this._todoService.updateTodoGroup( id, getTodoGroupCompleted( this.todoGroup ));
-      console.log('entro');
       
       this.showMessage( 'success', title, 'Grupo de Tareas Terminadas' );
       return;
@@ -98,7 +97,6 @@ export class TodoCardComponent implements OnInit {
       getTodoGroupToDone( this.todoGroup, index, checked ) 
     );
     if ( this.todoType === MenuValues.done ) {
-      console.log('por hacer');
       
       this.showMessage( 'warn', title, 'Grupo Reasignado a Por Hacer' );
     } 
@@ -119,7 +117,7 @@ export class TodoCardComponent implements OnInit {
 
   onSubmitNewTodoItem( task: string ): void {
     const newTodoItem: Todo = getNewTodo({
-      task, end_date: '', priority: 0, details: ''
+      task, priority: 0, details: ''
     });
 
     this.todoItemsFormArray.push( this._fb.control( false ) );

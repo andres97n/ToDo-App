@@ -3,7 +3,7 @@ import { Injectable, computed, signal } from '@angular/core';
 import * as todos from '../../../assets/data/todos.json';
 
 import { Todo, TodoGroup } from '../interfaces';
-import { emptyTodoGroup } from '../helpers';
+import { emptyTodoGroup, setDateFormatToStaticData } from '../helpers';
 
 
 @Injectable({
@@ -19,12 +19,12 @@ export class TodoService {
 
   constructor() { 
     if ( this._todoListRaw.default ) {
-      this._todoGroups.update( () => this._todoListRaw.default ); 
+      this._todoGroups.update( () => setDateFormatToStaticData( this._todoListRaw.default )); 
     }
   }
 
-  public setTodoGroup(todos: TodoGroup): void {
-    this._todoGroups.update( currentGroups => [ ...currentGroups, todos ] );
+  public setTodoGroup(todoGroup: TodoGroup): void {
+    this._todoGroups.update( currentGroups => [ ...currentGroups, todoGroup ] );
     return;
   }
 

@@ -4,7 +4,7 @@
     "title": "Learn Frameworks",
     "completed": false,
     "start_date": "2013-10-21T13:28:06.419Z",
-    "end_date": "",
+    "end_date": null,
     "todos": [
       {
         "id": 1,
@@ -43,7 +43,7 @@
     "title": "Work",
     "completed": false,
     "start_date": "2013-10-21T13:28:06.419Z",
-    "end_date": "",
+    "end_date": null,
     "todos": [
       {
         "id": 4,

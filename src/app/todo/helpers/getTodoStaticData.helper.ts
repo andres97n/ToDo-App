@@ -11,7 +11,7 @@ import { getCurrentDate } from "./date.helper";
 
 export interface TodoFunction {
   task: string; 
-  end_date: Date | string; 
+  end_date?: Date; 
   priority: PriorityValues;
   details: string; 
 }
@@ -56,8 +56,7 @@ export const getNewTodo = ( todo: TodoFunction ): Todo => {
     start_date: getCurrentDate(),
     task, 
     taskDone: false,
-    end_date: end_date || '',
-    task_end_date: '', 
+    end_date,
     priority,
     details
   } 
