@@ -1,7 +1,7 @@
 
-import { TodoGroup, Todo } from "../interfaces";
+import { TodoGroup, Todo, TodoFormData } from "../interfaces";
 
-import { getCurrentDate, isDateAfter, isDateBefore } from './date.helper';
+import { isDateAfter, isDateBefore } from './date.helper';
 
 
 
@@ -15,10 +15,10 @@ export const getTodoGroupCompleted = ( todoGroup: TodoGroup ): TodoGroup => {
   todoGroup.todos = currentTodos.map( todo => ({ 
     ...todo, 
     taskDone: true, 
-    task_end_date: getCurrentDate() 
+    task_end_date: new Date()
   }));
   todoGroup.completed = true;
-  todoGroup.end_date = getCurrentDate();
+  todoGroup.end_date = new Date();
 
   return todoGroup;
 }
@@ -33,9 +33,9 @@ export const getTodoGroupToDone = (
   todoGroup.todos = currentTodos.map( (todo, i) => ({ 
     ...todo, 
     taskDone: (i === index) ? todoValue : todo.taskDone,
-    task_end_date: (todoValue && i === index) 
-                    ? getCurrentDate() 
-                    : todo.task_end_date
+    end_date: (todoValue && i === index) 
+                    ? new Date()
+                    : todo.end_date
   }));
   todoGroup.completed = false;
 
@@ -59,3 +59,19 @@ export const getTodosSorted = ( todos: Todo[] ): Todo[] => {
     return 0;
   });
 }
+
+export const getNewTodo = ( todo: TodoFormData ): Todo => {
+  const { task, task_end_date, priority, details } = todo;
+
+  const newTodo: Todo = {
+    id: Number(Math.floor(Math.random() * 100000).toString()),
+    start_date: new Date(),
+    task, 
+    taskDone: false,
+    task_end_date,
+    priority,
+    details
+  } 
+
+  return newTodo;
+};

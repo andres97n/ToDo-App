@@ -1,6 +1,5 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { FormControl } from '@angular/forms';
-import { Router } from '@angular/router';
 
 import { TodoService } from '../../services/todo.service';
 
@@ -13,9 +12,10 @@ import { TodoService } from '../../services/todo.service';
 export class HeaderComponent implements OnInit {
 
   private _todoService = inject( TodoService );
-  private _router = inject( Router );
 
   public searchControl:FormControl = new FormControl('');
+  
+  public todoListPath: string = '/dashboard/todo-list';
 
   ngOnInit(): void {
     this.isTodoListPage;
@@ -25,9 +25,7 @@ export class HeaderComponent implements OnInit {
   }
 
   get isTodoListPage(): boolean {
-    // console.log(this._router.getCurrentNavigation());
-    
-    return true;
+    return window.location.pathname === this.todoListPath;
   }
 
   public searchTodoGroup( term: string ): void {

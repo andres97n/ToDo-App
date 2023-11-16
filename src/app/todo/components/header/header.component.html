@@ -2,7 +2,7 @@
   <div class="header__logout-container">
     <p-button icon="pi pi-caret-left" 
               styleClass="p-button-warning"
-              routerLink="/dashboard/todo-list"
+              [routerLink]='todoListPath'
               *ngIf="!isTodoListPage"></p-button>
   </div>
   <div class="header__search-container">

@@ -8,6 +8,6 @@ export interface Todo {
   start_date: Date;
   task_end_date?: Date;
   end_date?: Date;
-  taskDone?: boolean;
+  taskDone: boolean;
   priority?: PriorityValues;
 }

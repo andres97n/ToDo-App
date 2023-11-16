@@ -3,18 +3,8 @@ import { Priority,
          DateSelection, 
          MenuToggle, 
          MenuValues, 
-         Todo, 
-         PriorityValues } from "../interfaces";
+         Todo } from "../interfaces";
 
-import { getCurrentDate } from "./date.helper";
-
-
-export interface TodoFunction {
-  task: string; 
-  end_date?: Date; 
-  priority: PriorityValues;
-  details: string; 
-}
 
 export const priorities: Priority[] = [
   { name: 'Ninguna', code: 0 },
@@ -45,23 +35,7 @@ export const emptyTodo: Todo = {
   id: 0,
   task: '',
   start_date: new Date(),
-};
-
-export const getNewTodo = ( todo: TodoFunction ): Todo => {
-
-  const { task, end_date, priority, details } = todo;
-
-  const newTodo: Todo = {
-    id: Number(Math.floor(Math.random() * 100000).toString()),
-    start_date: getCurrentDate(),
-    task, 
-    taskDone: false,
-    end_date,
-    priority,
-    details
-  } 
-
-  return newTodo;
+  taskDone: false,
 };
 
 export const getPriority = ( code: number ): Priority => {

@@ -57,16 +57,20 @@ export class TodoCardComponent implements OnInit {
     return this.todoGroup.todos[index].task;
   }
   
+  isTodoType(): boolean {
+    return this.todoType === MenuValues.todo;
+  }
+
+  isTodoGroupEmpty(): boolean{
+    return this.todoGroup.todos.length === 0;
+  }
+
   setStateChecks(): void {
     if ( this.todoGroup ) {
       this.todoGroup.todos.forEach( todo => {
         this.todoItemsFormArray.push( this._fb.control( todo.taskDone ) );
       });
     }
-  }
-
-  isTodoType(): boolean {
-    return this.todoType === MenuValues.todo;
   }
 
   showMessage( severity: string, summary: string, detail: string ): void {

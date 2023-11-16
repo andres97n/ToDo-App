@@ -17,56 +17,29 @@
              [placeholder]="isEmptyForm ? 'Escribe algo...' : ''" 
              [ngClass]="{ 'ng-invalid ng-dirty': isInvalidField('task') }"/>
     </span>
+
     <p-button [icon]="(!isTodoDetailActive()) 
-    ?'pi pi-angle-down' 
-    :'pi pi-angle-up'"
-    (onClick)="onChangeDetailState( isTodoDetailActive() )"  
-    type="button"></p-button>
+                ?'pi pi-angle-down' 
+                :'pi pi-angle-up'"
+              type="button"
+              (onClick)="onChangeDetailState( isTodoDetailActive() )"  
+              *ngIf="!isTodoDone"></p-button>
+
+    <p-button icon="pi pi-check"
+              type="button"
+              styleClass="p-button-success"
+              [disabled]="true"
+              *ngIf="isTodoDone"></p-button>
+
     <label htmlFor="task"
            *ngIf="isInvalidField('task')">{{ getFieldErrorMessage('task') }}</label>
   </div>
   
   <todo-item-detail *ngIf="isTodoDetailActive()"
+                    [todoGroupId]="todoGroupId"
+                    [todoId]="todo.id"
                     [todoForm]="todoForm"
                     [isEmptyForm]="isEmptyForm"
                     (onSubmitDetail)="onSubmit()"
-                    (onDeleteTodo)="deleteToDo()"></todo-item-detail>
-  <!-- <div class="todo__item-body" *ngIf="isTodoDetailActive()">
-    <div class="todo__item-body_resume">
-      <textarea pInputTextarea 
-                formControlName="details"
-                placeholder="Detalle de la Tarea..." 
-                [autoResize]="false"
-                [ngClass]="{ 'ng-invalid ng-dirty': isInvalidField('details') }"></textarea>
-    </div>
-    <label htmlFor="task"
-            id="area-error"
-            *ngIf="isInvalidField('details')">{{ getFieldErrorMessage('details') }}</label>
-    <div class="todo__item-body_date">
-      <label>Fecha Límite</label>
-      <div>
-        <p-selectButton [options]="stateOptions" 
-                        optionLabel="label" 
-                        optionValue="value"
-                        (onOptionClick)="onDateSelectionChange($event)"></p-selectButton>
-        <p-calendar formControlName="end_date" 
-                    dateFormat="dd/mm/yy"></p-calendar>
-      </div>
-    </div>
-    <div class="todo__item-body_priority">
-      <label>Prioridad</label>
-      <p-dropdown [options]="prioritiesSelect" 
-                  formControlName="priority" 
-                  optionLabel="name"></p-dropdown>
-    </div>
-    <div class="todo__item-body_action">
-      <p-button icon="pi pi-save"
-                type="submit"
-                [ngClass]="{ 'space-beetween' : !isEmptyForm }"></p-button>
-      <p-button icon="pi pi-trash" 
-                styleClass="p-button-danger"
-                (onClick)="deleteToDo()"
-                *ngIf="!isEmptyForm"></p-button>
-    </div>
-  </div> -->
+                    (onShowMessage)="showMessage($event)"></todo-item-detail>
 </form>

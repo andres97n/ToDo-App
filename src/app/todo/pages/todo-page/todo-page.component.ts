@@ -48,7 +48,7 @@ export class TodoPageComponent implements OnInit{
       severity: 'error',
       summary: 'Error',
       detail: 'No se pudo encontrar el Grupo de Tareas'
-    }]
+    }];
   }
 
   get isTodoGroupValid(): boolean {
@@ -95,11 +95,12 @@ export class TodoPageComponent implements OnInit{
     }
 
     const { title } = this.todoGroupForm.value;
-    const currentTodoGroup = this.getTodoGroup();
+    const currentTitle: string = title!.trim();
+    const currentTodoGroup: TodoGroup = this.getTodoGroup();
     
-    if ( currentTodoGroup.title === title!.trim() ) return;
+    if ( currentTodoGroup.title === currentTitle ) return;
 
-    currentTodoGroup.title = title!;
+    currentTodoGroup.title = currentTitle;
     this._todoService.updateTodoGroup( this.todoGroupId(), currentTodoGroup );
     return;
   }

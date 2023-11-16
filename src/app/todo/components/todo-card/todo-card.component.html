@@ -5,7 +5,7 @@
   </div>
 
   <div class="todo-card__body">
-    <form [formGroup]="cardForm" class="todo-card__content">
+    <form [formGroup]="cardForm" class="todo-card__content" *ngIf="!isTodoGroupEmpty()">
       <ng-container formArrayName="todoItems">
         <div class="todo-card__content-item" 
              *ngFor="let todo of todoItemsFormArray.controls; let i = index;"
@@ -22,6 +22,9 @@
         </div>
       </ng-container>
     </form>
+    <ng-container *ngIf="isTodoGroupEmpty()" class="todo-card__content-item">
+      <h4 style="text-align: center;">Aún no existen tareas, prueba a crear a una</h4>
+    </ng-container>
   </div>
 
   <div class="todo-card__footer">

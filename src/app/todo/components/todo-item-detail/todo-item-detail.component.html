@@ -11,19 +11,19 @@
           *ngIf="isDetailsFieldInvalid">{{ detailsErrorMessage }}</label>
 
   <div class="todo__detail-body_date">
-    <label>Fecha Límite</label>
+    <label class="todo__detail-label">Fecha Límite</label>
     <div>
       <p-selectButton [options]="stateOptions" 
                       optionLabel="label" 
                       optionValue="value"
                       (onOptionClick)="onDateSelectionChange($event)"></p-selectButton>
-      <p-calendar formControlName="end_date" 
-                  dateFormat="dd/mm/yy"></p-calendar>
+      <p-calendar formControlName="task_end_date" 
+                  dateFormat="yy-mm-dd"></p-calendar>
     </div>
   </div>
 
   <div class="todo__detail-body_priority">
-    <label>Prioridad</label>
+    <label class="todo__detail-label">Prioridad</label>
     <p-dropdown [options]="prioritiesSelect" 
                 formControlName="priority" 
                 optionLabel="name"></p-dropdown>

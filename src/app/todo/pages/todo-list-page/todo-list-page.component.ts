@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 
 import { MenuToggle, MenuValues, TodoGroup } from '../../interfaces/';
 
-import { getCurrentDate, todoStateOptions } from '../../helpers';
+import { todoStateOptions } from '../../helpers';
 
 import { TodoService } from '../../services/todo.service';
 
@@ -43,7 +43,7 @@ export class TodoListPageComponent {
     const newTodoGroup: TodoGroup = {
       id: todoGroupId,
       title: title,
-      start_date: getCurrentDate(),
+      start_date: new Date(),
       completed: false,
       todos: [],
     }

@@ -27,7 +27,6 @@ export class TodoItemsComponent {
     });
 
     return getTodoGroupsSorted( groupsDone );
-    // return groupsDone;
   }
 
   get todoGroupsForDo(): TodoGroup[] {
@@ -37,11 +36,9 @@ export class TodoItemsComponent {
     });
 
     return getTodoGroupsSorted( groupsForDo );
-
-    // return groupsForDo;
   }
 
-  isToDoTypeDone(): boolean {
+  isTodoTypeDone(): boolean {
     return this.todoType === MenuValues.done;
   }
 

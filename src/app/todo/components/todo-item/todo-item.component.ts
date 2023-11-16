@@ -13,18 +13,18 @@ import { Message } from 'primeng/api';
 import { TodoService } from '../../services/todo.service';
 import { ValidatorsService } from 'src/app/shared/services/validators.service';
 
-import { Todo, Priority } from '../../interfaces';
+import { Priority, Todo, TodoFormData } from '../../interfaces';
 
 import { getPriority, 
          getNewTodo, 
          getDateFormattedToString, 
-         getDateFormatted} from '../../helpers/';
+         getDateByString} from '../../helpers/';
 
 
 interface TodoForm {
   task: string;
   details: string;
-  end_date: string;
+  task_end_date: string;
   priority: Priority;
 }
 
@@ -53,12 +53,12 @@ export class TodoItemComponent implements OnInit{
   public todoForm = this._fb.group({
     task: ['', [ Validators.required, Validators.maxLength(120) ]],
     details: ['', [ Validators.maxLength(300)  ]],
-    end_date: [''],
+    task_end_date: [''],
     priority: [ getPriority(0) ],
   });
 
   ngOnInit(): void {
-    if (this.todo.id !== 0) {
+    if (this.todo.id > 0) {
       this.setTodoToForm();
       return;
     }
@@ -72,29 +72,10 @@ export class TodoItemComponent implements OnInit{
     return this.todo.id === 0;
   }
 
-  //TODO: Show end_date in New Todos
-  setTodoToForm(): void {
-    const { task, details, end_date, priority } = this.todo;
-    console.log(end_date);
-    
-    // const endDate = (end_date) ? getDateFormatted( end_date.toString() ).toString() : '';
-    let endDate = '';
-    if ( end_date ) {
-      endDate = getDateFormattedToString( end_date.toString() );
-    }
-
-    this.resetTodoForm({ 
-      task, details: details!, end_date: endDate, priority: getPriority( priority! ) 
-    });
+  get isTodoDone(): boolean {
+    return this.todo.taskDone;
   }
-  
-  public resetTodoForm( todoForm: TodoForm ): void {
-    const { task, details, end_date, priority } = todoForm;
 
-    this.todoForm.reset({ task, details, end_date, priority });
-    return; 
-  }
-  
   public isInvalidField( field: string ) {
     return this._validatorsService.isInvalidField( this.todoForm, field );
   }
@@ -103,12 +84,34 @@ export class TodoItemComponent implements OnInit{
     return this._validatorsService.getErrorMessage( this.todoForm, field );
   }
 
-  showMessage( severity: string, summary: string, detail: string ): void {
+  setTodoToForm(): void {
+    const { task, details, task_end_date, end_date, priority } = this.todo;
+    console.log(end_date);
+    
+    let taskEndDate = '';
+    if ( task_end_date ) {
+      taskEndDate = getDateFormattedToString( task_end_date.toString() );
+    }
+
+    this.resetTodoForm({ 
+      task, details: details!, task_end_date: taskEndDate, priority: getPriority( priority! ) 
+    });
+  }
+  
+  public resetTodoForm( todoForm: TodoForm ): void {
+    const { task, details, task_end_date, priority } = todoForm;
+
+    this.todoForm.reset({ task, details, task_end_date, priority });
+    return; 
+  }
+  
+  showMessage( message:Message ): void {
+    const { severity, summary, detail } = message; 
     this.onConfirmMessage.emit({ severity, summary, detail });
   }
 
   onChangeDetailState( state: boolean): void {
-    if ( state ) this.setTodoToForm();
+    // if ( state ) this.setTodoToForm();
     this._todoDetailActive.set( !state );
   }
 
@@ -118,18 +121,19 @@ export class TodoItemComponent implements OnInit{
       return;
     } 
 
-    const { task, details, end_date, priority } = this.todoForm.value; 
-    const newTodo: Todo = getNewTodo({ 
-      task: task!.trim(), 
-      end_date: getDateFormatted( end_date! ), 
-      priority: priority!.code, 
-      details: details?.trim() || '' 
-    });
+    const { task, details, task_end_date, priority } = this.todoForm.value;
+    
+    const currentFormData: TodoFormData = { task: task!.trim() };
+    currentFormData.details = details?.trim() || '';
+    if ( priority ) currentFormData.priority = priority.code;
+    if ( task_end_date ) currentFormData.task_end_date = getDateByString( task_end_date )!;
+
+    const newTodo: Todo = getNewTodo( currentFormData );
     
     if ( this.isEmptyForm ) {
       this._todoService.setTodoToGroup( this.todoGroupId, newTodo );
       this.resetTodoForm({ 
-        task: '', details: '', end_date: '', priority: getPriority( 0 ) 
+        task: '', details: '', task_end_date: '', priority: getPriority( 0 ) 
       });
     }
 
@@ -137,18 +141,14 @@ export class TodoItemComponent implements OnInit{
       this._todoService.updateTodoToGroup( this.todoGroupId, this.todo.id, newTodo );
     }
     
-    this.showMessage( 
-      'success',
-      '', 
-      (this.isEmptyForm) ? 'Tarea agregada correctamente' : 'Tarea actualizada correctamente' 
-    );
+    this.showMessage({
+      severity: 'success',
+      detail: '', 
+      summary:(this.isEmptyForm) 
+        ? 'Tarea agregada correctamente' 
+        : 'Tarea actualizada correctamente'
+    });
     this._todoDetailActive.set( false );
     return;
   }
-
-  deleteToDo(): void {
-    this._todoService.deleteTodoOfAGroup( this.todoGroupId, this.todo.id );
-    this.showMessage( 'success', '', 'Tarea eliminada correctamente' );
-  }
-
 }

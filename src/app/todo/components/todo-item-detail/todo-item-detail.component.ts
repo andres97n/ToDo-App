@@ -1,12 +1,14 @@
 import { Component, EventEmitter, Input, Output, inject } from '@angular/core';
 import { FormGroup } from '@angular/forms';
+import { Message } from 'primeng/api';
 
 import { SelectButtonOptionClickEvent } from 'primeng/selectbutton';
 
-import { TodoService } from '../../services/todo.service';
 import { ValidatorsService } from 'src/app/shared/services/validators.service';
 
 import { DateSelection, Priority } from '../../interfaces';
+
+import { TodoService } from '../../services/todo.service';
 
 import { dateStates, getCurrentDateToString, getTomorrow, priorities } from '../../helpers';
 
@@ -22,14 +24,18 @@ export class TodoItemDetailComponent {
   public todoForm!: FormGroup;
   @Input()
   public isEmptyForm: boolean = false;
+  @Input()
+  public todoGroupId!: number;
+  @Input()
+  public todoId!: number;
   
   @Output()
-  public onSubmitDetail: EventEmitter<undefined> = new EventEmitter();
+  public onSubmitDetail: EventEmitter<void> = new EventEmitter();
   @Output()
-  public onDeleteTodo: EventEmitter<undefined> = new EventEmitter();
+  public onShowMessage: EventEmitter<Message> = new EventEmitter();
 
-  private _todoService = inject( TodoService );
   private _validatorsService = inject( ValidatorsService );
+  private _todoService = inject( TodoService );
 
   get prioritiesSelect(): Priority[] {
     return [ ...priorities ];
@@ -49,7 +55,7 @@ export class TodoItemDetailComponent {
 
   onDateSelectionChange( event: SelectButtonOptionClickEvent ): void {
     const { value } = event.option;
-    const dateField = this.todoForm.get('end_date');
+    const dateField = this.todoForm.get('task_end_date');
     const today = getCurrentDateToString();
     
     if ( !dateField ) return;
@@ -57,14 +63,20 @@ export class TodoItemDetailComponent {
     if ( value === 'today' ) dateField.setValue( today ); 
       
     if ( value === 'tomorrow' ) dateField.setValue( getTomorrow() );
+    
     return;
   }
 
   deleteToDo(): void {
-    this.onDeleteTodo.emit();
+    this._todoService.deleteTodoOfAGroup( this.todoGroupId, this.todoId );
+    this.onShowMessage.emit({
+      severity: 'success',
+      detail: '', 
+      summary: 'Tarea eliminada correctamente'
+    });
   }
 
-  onSubmit() {
+  onSubmit(): void {
     this.onSubmitDetail.emit();
   }
 

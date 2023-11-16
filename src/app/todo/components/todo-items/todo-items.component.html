@@ -1,5 +1,5 @@
 <div class="todo-items__container">
-  <ng-container *ngIf="!isToDoTypeDone()">
+  <ng-container *ngIf="!isTodoTypeDone()">
     <h2 *ngIf="isTodoGroupsForDoEmpty()">Aún no se ha subido ningún grupo de Tareas, prueba a crear uno</h2>
     <todo-card *ngFor="let group of todoGroupsForDo;"
                [todoGroup]="group"
@@ -7,7 +7,7 @@
                />
                <!-- (onCheckChangeStatus)="changeTodoGroupsStatus($event)" -->
   </ng-container>
-  <ng-container *ngIf="isToDoTypeDone()">
+  <ng-container *ngIf="isTodoTypeDone()">
     <h2 *ngIf="isTodoGroupsDoneEmpty()">Aún no se ha completado ningún grupo de Tareas</h2>
     <todo-card *ngFor="let group of todoGroupsDone;"
                [todoGroup]="group"
