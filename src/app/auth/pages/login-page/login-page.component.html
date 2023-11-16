@@ -1,48 +1,40 @@
 
 <div class="login-container">
-  <h3 class="title">Inicio de Sesión</h3>
-  <form 
-    autocomplete="off"
-    [formGroup]="authForm" 
-    class="login__form"
-    (ngSubmit)="onLogin()"
-  >
+  <h2 class="title">Inicio de Sesión</h2>
+  <form autocomplete="off"
+        [formGroup]="authForm" 
+        class="login__form"
+        (ngSubmit)="onLogin()">
     <div class="form__group">
       <span class="p-float-label">
-        <input 
-          pInputText 
-          id="username" 
-          formControlName="email" 
-          [ngClass]="{ 'ng-invalid ng-dirty': isInvalidField('email') }"
-        />
+        <input pInputText 
+               id="username" 
+               formControlName="email" 
+               [ngClass]="{ 
+                'ng-invalid ng-dirty': isInvalidField('email') 
+               }"/>
         <label htmlFor="username">Correo Electrónico</label>
       </span>
-      <small 
-        *ngIf="isInvalidField('email')"
-        class="error-message"
-      >{{ getFieldErrorMessage( 'email' ) }}</small>
+      <small *ngIf="isInvalidField('email')"
+             class="error-message" >{{ getFieldErrorMessage( 'email' ) }}</small>
     </div>
     <div class="form__group">
       <span class="p-float-label">
-        <p-password 
-          [feedback]="false" 
-          [toggleMask]="true" 
-          formControlName="password"
-          [ngClass]="{ 'ng-invalid ng-dirty': isInvalidField('password') }"
-        ></p-password>
+        <p-password [feedback]="false" 
+                    [toggleMask]="true" 
+                    formControlName="password"
+                    [ngClass]="{ 
+                      'ng-invalid ng-dirty': isInvalidField('password') 
+                    }"></p-password>
         <label htmlFor="username">Contraseña</label>
       </span>
-      <small 
-        *ngIf="isInvalidField('password')"
-        class="error-message"
-      >{{ getFieldErrorMessage( 'password' ) }}</small>
+      <small *ngIf="isInvalidField('password')"
+             class="error-message">{{ getFieldErrorMessage( 'password' ) }}</small>
     </div>
 
-    <p-button 
-      label="Ingresar" 
-      styleClass="p-button-raised"
-      type="submit"
-    ></p-button>
+    <p-button label="Ingresar" 
+              styleClass="p-button-raised"
+              type="submit" ></p-button>
 
   </form>
   
